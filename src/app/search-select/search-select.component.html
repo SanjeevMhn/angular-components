@@ -1,0 +1,12 @@
+<div class="search-select">
+    <input type="text" name="" id="search" class="form-control search-input" (focus)="toggleShowResult(true)" autocomplete="off" [value]="fillInput ? fillInput : ''">
+    @if(showResults){
+    <ul class="search-list">
+        @if(results){
+        @for(result of results; track result){
+        <li class="result-item" (click)="selected(result)">{{result}}</li>
+        }
+        }
+    </ul>
+    }
+</div>
