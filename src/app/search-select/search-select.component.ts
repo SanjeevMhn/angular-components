@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostListener, inject, Input, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, inject, Input, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
@@ -43,6 +43,8 @@ export class SearchSelectComponent {
 
   buffer!:string;
 
+  @ViewChild('searchinput') searchinput!:ElementRef;
+
   @HostListener('keyup',['$event'])
   tabKeyPress(event:any){
     if(event.key == 'Tab' && this.showResults){
@@ -56,6 +58,11 @@ export class SearchSelectComponent {
       if(this.buffer){
         this.selected(this.buffer);
       }
+    }
+
+    if(event.key == 'Escape'){
+      this.showResults = false;
+      this.searchinput.nativeElement.blur();
     }
   }
 
