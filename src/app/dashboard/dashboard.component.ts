@@ -43,11 +43,13 @@ export class DashboardComponent {
     })
   )
 
+  dropdownSelectedItem!:any;
+
   searchResults(keyword: string){
     this.searchSubject.next(keyword);
   }
   
   selectedItem(item: string | number){
-
+    this.dropdownSelectedItem = item;
   }
 }

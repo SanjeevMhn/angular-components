@@ -35,6 +35,25 @@ export class SearchSelectComponent {
     }
   }
 
+  buffer!:string;
+
+  @HostListener('keyup',['$event'])
+  tabKeyPress(event:any){
+    if(event.key == 'Tab' && this.showResults){
+      let classArray = Array.from(event.target.classList);
+      if(classArray.indexOf('result-item') !== -1){
+        this.buffer = event.target.innerHTML;
+      }
+    }
+    
+    if(event.key == 'Enter'){
+      if(this.buffer){
+        this.selected(this.buffer);
+      }
+    }
+  }
+
+
   searchStart(event:any){
     this.search.emit(event.target.value);
   }

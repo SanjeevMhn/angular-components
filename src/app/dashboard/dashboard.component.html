@@ -1,10 +1,9 @@
 <p>dashboard works!</p>
 <app-data-table></app-data-table>
-@if(results$ | async; as results){
-    <app-search-select 
-        [results]="results" 
-        (search)="searchResults($event)"
-        (selectedItem)="selectedItem($event)"
-     ></app-search-select>
-}
-
+<div class="container">
+    @if(results$ | async; as results){
+    <app-search-select [results]="results" (search)="searchResults($event)" (selectedItem)="selectedItem($event)">
+    </app-search-select>
+    }
+    <div class="selected-option">Seletected Option: {{dropdownSelectedItem}}</div>
+</div>

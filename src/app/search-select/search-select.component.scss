@@ -1,10 +1,33 @@
 .search-select {
     position: relative;
-    display: inline-block;
+    display: inline-flex; 
 
+    .search-input{
+        padding: 8px 34px 8px 12px;
+        border-radius: 8px;
+        font-size: 17px;
+    }
+
+    .icon-container{
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        height: 20px;
+        width: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        svg{
+            height: 80%;
+            width: 80%;
+            object-fit: cover;
+            fill: #000;
+        }
+    }
     .search-list {
         position: absolute;
-        top: 120%;
+        top: 110%;
         width: 100%;
         list-style-type: none;
         padding: 0;
