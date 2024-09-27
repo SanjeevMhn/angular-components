@@ -34,4 +34,8 @@ export class SearchSelectComponent {
       this.showResults = false;
     }
   }
+
+  searchStart(event:any){
+    this.search.emit(event.target.value);
+  }
 }

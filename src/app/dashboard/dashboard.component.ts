@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { DataTableComponent } from "../data-table/data-table.component";
 import { SearchSelectComponent } from "../search-select/search-select.component";
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject, combineLatest, debounceTime, map, Observable, of, startWith, Subject, switchMap } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 
 @Component({
@@ -14,7 +14,7 @@ import { AsyncPipe } from '@angular/common';
 export class DashboardComponent {
 
 
-  results$:Observable<Array<any>> = of([
+  options$ = new BehaviorSubject<Array<string>>([
     "Kathmandu",
     "Lalitpur",
     "Bhaktapur",
@@ -28,8 +28,23 @@ export class DashboardComponent {
     "Mustang"
   ])
 
-  searchResults(keyword: string){
+  searchSubject = new Subject<string>();
+  searchText = this.searchSubject.pipe(
+    startWith(""),
+    debounceTime(600),
+    map(search => search)
+  )
 
+  results$ = combineLatest([this.options$,this.searchText]).pipe(
+    switchMap(([options,search]) => {
+      return search !== '' ? 
+        of(options.filter((value:string) => value.toLowerCase().includes(search.toLowerCase()))) : 
+        of(options)
+    })
+  )
+
+  searchResults(keyword: string){
+    this.searchSubject.next(keyword);
   }
   
   selectedItem(item: string | number){
