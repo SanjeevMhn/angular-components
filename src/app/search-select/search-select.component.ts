@@ -1,9 +1,10 @@
-import { Component, EventEmitter, HostListener, Input, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, inject, Input, Output } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-search-select',
   standalone: true,
-  imports: [],
+  imports: [FormsModule, ReactiveFormsModule],
   templateUrl: './search-select.component.html',
   styleUrl: './search-select.component.scss'
 })
@@ -12,13 +13,18 @@ export class SearchSelectComponent {
   @Output() search = new EventEmitter();
   @Output() selectedItem = new EventEmitter();
 
-  fillInput!:string | number;
+  fb = inject(FormBuilder);
 
+  fillInput:string = '';
+  form:FormGroup = this.fb.group({
+    searchInput: [""]
+  })
   showResults = false;
 
-  selected(item: string | number) {
+  selected(item: string) {
     this.selectedItem.emit(item);
     this.fillInput = item;
+    this.form.controls['searchInput'].patchValue(item);
     this.showResults = false;
   }
 
