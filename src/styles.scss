@@ -1,4 +1,24 @@
 /* You can add global styles to this file, and also import other style files */
+@import './reset';
+:root{
+    font-size: 62.5%;
+}
 body{
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 1.6rem;
+}
+
+.icon-container {
+    --size: 2rem;
+    width: var(--size);
+    height: var(--size);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+        height: 95%;
+        width: 95%;
+        object-fit: cover;
+    }
 }

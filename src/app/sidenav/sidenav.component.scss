@@ -1,0 +1,36 @@
+.sidenav {
+    background-color: #3d3d3d;
+    padding: 1rem 2.5rem;
+    position: fixed;
+    top: 6rem;
+    left: 0;
+    width: 25rem;
+    height: 100vh;
+}
+
+.sidenav-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+
+    .sidenav-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        cursor: pointer;
+
+        &:hover {
+            background-color: #1f1f1f;
+        }
+
+        >* {
+            color: #fff;
+            fill: #fff;
+        }
+    }
+}
