@@ -1,1 +1,38 @@
-<p>data-table works!</p>
+<div class="data-table-container">
+    <table class="data-table">
+        <thead>
+            <tr>
+                @for(props of data[0] | keyvalue:zero; track props){
+                <th>{{props.key}}</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @for(item of data; track item){
+            <tr>
+                @for(props of item | keyvalue: zero; track props){
+                @if(checkIfImage(props.key)){
+                <td>
+                    <div class="img-container">
+                        <img src="{{props.value}}" alt="">
+                    </div>
+                </td>
+                }@else {
+                <td>{{props.value}}</td>
+                }
+                }
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="pagination">
+    <mat-paginator 
+        [length]="20" 
+        [pageSize]="5" 
+        [pageSizeOptions]="[5,10,15,20]" 
+        [showFirstLastButtons]="true"
+        (page)="handlePageEvent($event)"
+        aria-label="Select page" 
+        class="paginator"></mat-paginator>
+</div>

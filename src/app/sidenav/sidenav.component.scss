@@ -1,5 +1,5 @@
 .sidenav {
-    background-color: #3d3d3d;
+    background-color: #292929;
     padding: 1rem 2.5rem;
     position: fixed;
     top: 6rem;
@@ -16,7 +16,7 @@
     padding: 0;
     margin: 0;
 
-    .sidenav-item {
+    .sidenav-link {
         display: flex;
         align-items: center;
         gap: 1rem;
@@ -25,12 +25,20 @@
         cursor: pointer;
 
         &:hover {
-            background-color: #1f1f1f;
+            background-color: #101010;
+        }
+
+        &.active{
+            background-color: #101010;
         }
 
         >* {
             color: #fff;
             fill: #fff;
+        }
+        .label-text{
+            border-bottom-width: 0;
+            outline: none;
         }
     }
 }

@@ -1,0 +1,6 @@
+<h2 class="header-text">Tables</h2>
+@if(dataSource$ | async; as data){
+    <app-data-table [data]="data" class="data-table" (gridEvent)="gridEvent($event)"></app-data-table>
+}@else {
+    <div class="loading-table"></div>
+}

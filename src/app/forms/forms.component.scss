@@ -1,0 +1,142 @@
+
+.header-text{
+    font-size: 2.54rem;
+    margin-bottom: 2.5rem;
+    font-weight: 700;
+}
+
+.secondary-text{
+    font-size: 1.85rem;
+    margin-bottom: 2.5rem;
+    font-weight: 500;
+}
+
+.simple-forms-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(50rem, 1fr));
+    gap: 2.5rem;
+    &.full-width{
+        grid-template-columns: 1fr;
+    }
+}
+.form {
+    background-color: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 0 12px 4px #3d3d3d56;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 1.5rem;
+    gap: 1.5rem;
+
+
+    .form-title {
+        padding: 1.5rem;
+        font-size: 2rem;
+        font-weight: 600;
+        border-bottom: 1px solid #000;
+    }
+
+    .form-row{
+        padding: 0 1.5rem;
+        width: calc(100% - 3rem);
+    }
+
+    .form-group {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        &.label-top{
+            flex-direction: column;
+            gap: 0.8rem;
+            align-items: flex-start;
+            label{
+                flex: unset;
+            }
+        }
+
+        label {
+            flex: 0 0 9rem;
+            min-width: 9rem;
+            font-size: 1.7rem;
+        }
+
+        .form-control {
+            width: calc(100% - 9rem);
+            padding: 0.5rem 0.8rem;
+            border-radius: 0.5rem;
+            font-size: 1.65rem;
+        }
+
+    }
+
+    .form-actions {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 0 1.5rem;
+    }
+}
+
+.btn-submit,
+.btn-cancel,
+.btn-form{
+    padding: 0.5rem 1rem;
+    font-size: 1.7rem;
+    color: #fff;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+.btn-submit{
+    background-color: #058703;
+}
+
+.btn-cancel{
+    background-color: #b60101;
+}
+
+.btn-form{
+    background-color: #145aab;
+}
+
+
+
+.col{
+    display: flex;
+    gap: 2rem;
+    .form-group{
+        // --size: 0 ;
+        width: var(--size);
+        padding: 0;
+        .form-control{
+            width: calc(100% - 2rem);
+        }
+    }
+}
+
+.col-2{
+   .form-group{
+     --size: 50%
+   }
+}
+
+.col-3{
+   .form-group{
+     --size: 33.33%
+   }
+}
+
+.col-4{
+   .form-group{
+     --size: 33.33%
+   }
+}
+
+.spacer{
+    padding: 2rem 0
+}
+
+.btn-container{
+    display: flex;
+    gap: 0.8rem;
+}
