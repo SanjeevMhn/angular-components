@@ -20,7 +20,6 @@ export class TablesComponent {
     switchMap(([pageSize,page]) => {
       let url = 'https://fakestoreapi.com/products';
       let offset = (page - 1 ) * pageSize;
-      // let url = ' https://api.escuelajs.co/api/v1/products';
       return this.http.get<Array<any>>(`${url}`).pipe(
         map((items => items.slice(offset, offset + pageSize)))
       )
