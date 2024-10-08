@@ -3,6 +3,7 @@ import { BaseLayoutComponent } from './base-layout/base-layout.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { FormsComponent } from './forms/forms.component';
 import { TablesComponent } from './tables/tables.component';
+import { LoginComponent } from './login/login.component';
 
 export const routes: Routes = [
 	{ 
@@ -16,8 +17,12 @@ export const routes: Routes = [
 		]
 	},
 	{
+		path: 'login',
+		component: LoginComponent
+	},
+	{
 		path: '',
-		redirectTo: 'home',
+		redirectTo: 'login',
 		pathMatch: 'full'
 	}
 ];

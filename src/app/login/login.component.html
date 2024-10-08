@@ -1,0 +1,31 @@
+<div class="login-form-container">
+    <form class="form" (submit)="login()" [formGroup]="loginForm">
+        <h4 class="form-title">Login</h4>
+        <div class="form-row">
+            <div class="form-group label-top">
+                <label for="name" class="form-label">Email</label>
+                <input type="email" name="name" id="email" class="form-control" [class]="this.submitBtnPressed && this.loginForm.controls['email'].errors ? 'err-input' : ''" placeholder="Enter Email" formControlName="email">
+                @if(this.submitBtnPressed && this.loginForm.controls['email'].errors){
+                    <span class="err-msg">
+                        {{errMsg('email',this.loginForm.controls['email'].errors)}}
+                    </span>
+                }
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group label-top">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" name="password" id="password" class="form-control" [class]="this.submitBtnPressed && this.loginForm.controls['password'].errors ? 'err-input' : ''" placeholder="Enter Password" formControlName="password">
+                @if(this.submitBtnPressed && this.loginForm.controls['password'].errors){
+                    <span class="err-msg">
+                        {{errMsg('password',this.loginForm.controls['password'].errors)}}
+                    </span>
+                }
+            </div>
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-submit">Submit</button>
+            <button type="reset" class="btn btn-cancel">Cancel</button>
+        </div>
+    </form>
+</div>

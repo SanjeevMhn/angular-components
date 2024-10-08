@@ -1,4 +1,12 @@
 <div class="data-table-container">
+    <div class="toolbox">
+        <form class="search-form">
+            <div class="form-group">
+                <label for="search" class="form-label">Search:</label>
+                <input type="text" name="search" id="search" class="form-control" placeholder="Search..." (input)="searchGrid($event)">
+            </div>
+        </form>
+    </div>
     <table class="data-table">
         <thead>
             <tr>

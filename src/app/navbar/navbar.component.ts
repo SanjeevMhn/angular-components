@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { SearchSelectComponent } from "../search-select/search-select.component";
 import { BehaviorSubject, Subject, startWith, debounceTime, map, combineLatest, switchMap, of } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -11,6 +12,7 @@ import { AsyncPipe } from '@angular/common';
   styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent {
+  router = inject(Router);
   options$ = new BehaviorSubject<Array<string>>([
     "Kathmandu",
     "Lalitpur",
@@ -48,5 +50,9 @@ export class NavbarComponent {
 
   selectedItem(item: string | number) {
     this.dropdownSelectedItem = item;
+  }
+
+  logout(){
+    this.router.navigate([""]);
   }
 }

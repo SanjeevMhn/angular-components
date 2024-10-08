@@ -10,7 +10,7 @@
     .data-table {
         thead {
             position: sticky;
-            top: 0;
+            top: 6rem;
             background-color: #fff;
             box-shadow: 0 1px 0 1px #d7d7d7;
 
@@ -24,14 +24,15 @@
         }
 
         tbody {
-            tr{
-                &:nth-child(even){
-                    td{
+            tr {
+                &:nth-child(even) {
+                    td {
                         background-color: #e4e4e4;
                     }
                 }
 
             }
+
             td {
                 padding: 1.25rem;
             }
@@ -46,18 +47,31 @@
 }
 
 .img-container {
-    --size: 9rem;
+    --size: 10rem;
     width: var(--size);
-    height: var(--size);
+    aspect-ratio: 1;
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: var(--primary-color);
+    overflow: hidden;
 
     img {
-        height: 100%;
-        width: 100%;
-        object-fit: cover;
+        width: 90%;
+        aspect-ratio: 1;
+        object-fit: contain;
     }
+}
+
+.toolbox {
+    padding: 1rem;
+    background-color: #fff;
+    display: flex;
+    position: sticky;
+    top: 0;
+    box-shadow: 0 1px 0 1px #d7d7d7;
+    z-index: 1;
+
 }
 
 .pagination {
@@ -80,7 +94,12 @@
         font-size: 1.6rem;
 
         >* {
-            font-size: 1.6rem!important;
+            font-size: 1.6rem !important;
         }
     }
+}
+
+.search-form {
+    display: inline-flex;
+    margin-left: auto;
 }

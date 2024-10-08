@@ -14,6 +14,7 @@ export class DataTableComponent {
   @Input() data!: any;
 
   @Output() gridEvent = new EventEmitter();
+  @Output() searchGridEvent = new EventEmitter();
 
   zero(): number {
     return 0;
@@ -26,6 +27,10 @@ export class DataTableComponent {
 
   handlePageEvent(event: any){
     this.gridEvent.emit(event)
+  }
+
+  searchGrid(event:any){
+    this.searchGridEvent.emit(event.target.value);
   }
 
 }
