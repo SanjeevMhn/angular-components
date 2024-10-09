@@ -1,8 +1,10 @@
 <div class="data-table-container">
     <div class="toolbox">
+        @if(title){
+            <h2 class="data-table-header secondary-text">{{title}}</h2>
+        }
         <form class="search-form">
             <div class="form-group">
-                <label for="search" class="form-label">Search:</label>
                 <input type="text" name="search" id="search" class="form-control" placeholder="Search..." (input)="searchGrid($event)">
             </div>
         </form>

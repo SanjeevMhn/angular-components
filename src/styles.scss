@@ -1,4 +1,3 @@
-
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
 @use '@angular/material' as mat;
@@ -10,22 +9,18 @@
 @include mat.core();
 
 // Define the theme object.
-$custom-components-theme: mat.define-theme((
-  color: (
-    theme-type: light,
-    primary: mat.$azure-palette,
-    tertiary: mat.$blue-palette,
-  ),
-  density: (
-    scale: 0,
-  )
-));
+$custom-components-theme: mat.define-theme((color: (theme-type: light,
+                primary: mat.$azure-palette,
+                tertiary: mat.$blue-palette,
+            ),
+            density: (scale: 0,
+            )));
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 :root {
-  @include mat.all-component-themes($custom-components-theme);
+    @include mat.all-component-themes($custom-components-theme);
 }
 
 // Comment out the line below if you want to use the pre-defined typography utility classes.
@@ -39,7 +34,7 @@ $custom-components-theme: mat.define-theme((
 @import './reset';
 @import './forms';
 
-body{
+body {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-size: 1.6rem;
 }
@@ -59,22 +54,101 @@ body{
     }
 }
 
-.btn{
+.btn {
     padding: 0;
     margin: 0;
     outline: none;
     border-width: 0;
     background-color: unset;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-mat-paginator{
-    &.paginator{
-        mat-select{
-            .mat-mdc-select-value{
-                font-size: 1.6rem!important;
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+mat-option {
+    >* {
+        font-size: 1.5rem !important;
+    }
+}
+
+mat-paginator {
+    &.paginator {
+        mat-select {
+            .mat-mdc-select-value {
+                font-size: 1.6rem !important;
             }
         }
+    }
+}
+
+.header-text {
+    font-size: 2.54rem;
+    margin-bottom: 2.5rem;
+    font-weight: 600;
+}
+
+.secondary-text {
+    font-size: 1.85rem;
+    margin-bottom: 2.5rem;
+    font-weight: 500;
+}
+
+.loading-table {
+    height: calc(100% - 6.5rem);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    background-color: #fff;
+    border-radius: 0.8rem;
+    overflow: hidden;
+    box-shadow: 0 0 12px 4px #1f1f1f56;
+
+    &::before,
+    &::after {
+        content: '';
+        position: absolute;
+        animation: load 2s infinite;
+        background-color: #c4c4c4;
+        border-radius: 0.5rem;
+        margin: 0 auto;
+    }
+
+    &::before {
+        top: 2rem;
+        left: 0;
+        right: 0;
+        width: calc(100% - 4rem);
+        height: 5rem;
+    }
+
+    &::after {
+        top: 8rem;
+        left: 0;
+        right: 0;
+        bottom: 2rem;
+        width: calc(100% - 4rem);
+        height: calc(100% - 10rem);
+    }
+}
+
+@keyframes load {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.4;
+    }
+
+    100% {
+        opacity: 1;
     }
 }

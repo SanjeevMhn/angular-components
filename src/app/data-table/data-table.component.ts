@@ -12,6 +12,7 @@ import { MatPaginator } from '@angular/material/paginator';
 export class DataTableComponent {
 
   @Input() data!: any;
+  @Input() title!: string;
 
   @Output() gridEvent = new EventEmitter();
   @Output() searchGridEvent = new EventEmitter();

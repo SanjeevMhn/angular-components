@@ -1,6 +1,12 @@
 <h2 class="header-text">Tables</h2>
 @if(dataSource$ | async; as data){
-    <app-data-table [data]="data" class="data-table" (gridEvent)="gridEvent($event)" (searchGridEvent)="searchGrid($event)"></app-data-table>
+    <app-data-table
+     [data]="data" 
+     [title]="'Products'"
+     (gridEvent)="gridEvent($event)" 
+     (searchGridEvent)="searchGrid($event)"
+     class="data-table" 
+     ></app-data-table>
 }@else {
     <div class="loading-table"></div>
 }

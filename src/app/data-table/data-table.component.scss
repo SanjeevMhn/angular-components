@@ -67,11 +67,15 @@
     padding: 1rem;
     background-color: #fff;
     display: flex;
+    align-items: center;
     position: sticky;
     top: 0;
     box-shadow: 0 1px 0 1px #d7d7d7;
     z-index: 1;
 
+    .data-table-header{
+        margin-bottom: 0;
+    }
 }
 
 .pagination {
