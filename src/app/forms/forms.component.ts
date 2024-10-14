@@ -29,6 +29,19 @@ export class FormsComponent {
       width: '800px'
     })
   }
+
+  openSideDialog(){
+    this.dialog.open(MultiColumnForm,{
+      panelClass: 'side-modal',
+      maxWidth: '100%',
+      width: '50%',
+      maxHeight: '100%',
+      height: '100%',
+      position: {
+        right: "0"
+      }  
+    })
+  }
 }
 
 @Component({

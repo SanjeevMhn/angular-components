@@ -13,6 +13,8 @@ export class DataTableComponent {
 
   @Input() data!: any;
   @Input() title!: string;
+  @Input() pageSize!: number | null;
+  @Input() dataSize!: number | null;
 
   @Output() gridEvent = new EventEmitter();
   @Output() searchGridEvent = new EventEmitter();

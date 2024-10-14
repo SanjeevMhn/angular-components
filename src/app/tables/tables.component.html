@@ -1,6 +1,8 @@
 <h2 class="header-text">Tables</h2>
 @if(dataSource$ | async; as data){
     <app-data-table
+     [pageSize]="pageSize | async"
+     [dataSize]="dataSize | async"
      [data]="data" 
      [title]="'Products'"
      (gridEvent)="gridEvent($event)" 

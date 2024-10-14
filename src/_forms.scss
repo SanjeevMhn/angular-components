@@ -25,7 +25,6 @@
     padding: 1.5rem;
     padding-bottom: 2.5rem;
     gap: 1.5rem;
-
 }
 
 
@@ -171,5 +170,18 @@
 
     &::first-letter {
         text-transform: uppercase;
+    }
+}
+
+
+.side-modal{
+    .simple-forms-container{
+        height: 100%;
+        .container{
+            height: 100%;
+            .form{
+                height: 100%;
+            }
+        }
     }
 }

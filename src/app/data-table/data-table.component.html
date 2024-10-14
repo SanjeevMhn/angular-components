@@ -1,13 +1,14 @@
 <div class="data-table-container">
     <div class="toolbox">
         @if(title){
-            <h2 class="data-table-header secondary-text">{{title}}</h2>
+        <h2 class="data-table-header secondary-text">{{title}}</h2>
         }
-        <form class="search-form">
+        <div class="search-form">
             <div class="form-group">
-                <input type="text" name="search" id="search" class="form-control" placeholder="Search..." (input)="searchGrid($event)">
+                <input type="text" name="search" id="search" class="form-control" placeholder="Search..."
+                    (input)="searchGrid($event)">
             </div>
-        </form>
+        </div>
     </div>
     <table class="data-table">
         <thead>
@@ -18,6 +19,7 @@
             </tr>
         </thead>
         <tbody>
+            @if(data.length > 0){
             @for(item of data; track item){
             <tr>
                 @for(props of item | keyvalue: zero; track props){
@@ -33,16 +35,17 @@
                 }
             </tr>
             }
+            }@else {
+                <div class="not-found">
+                    Not found
+                </div>
+            }
+
         </tbody>
     </table>
 </div>
 <div class="pagination">
-    <mat-paginator 
-        [length]="20" 
-        [pageSize]="5" 
-        [pageSizeOptions]="[5,10,15,20]" 
-        [showFirstLastButtons]="true"
-        (page)="handlePageEvent($event)"
-        aria-label="Select page" 
+    <mat-paginator [length]="dataSize" [pageSize]="pageSize" [pageSizeOptions]="[5,10,15,20]"
+        [showFirstLastButtons]="true" (page)="handlePageEvent($event)" aria-label="Select page"
         class="paginator"></mat-paginator>
 </div>

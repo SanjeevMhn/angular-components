@@ -1,7 +1,7 @@
 import { AsyncPipe, JsonPipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
-import { BehaviorSubject, combineLatest, debounceTime, map, Observable, startWith, Subject, switchMap } from 'rxjs';
+import { BehaviorSubject, combineLatest, debounceTime, map, Observable, startWith, Subject, switchMap, tap } from 'rxjs';
 import { DataTableComponent } from "../data-table/data-table.component";
 
 @Component({
@@ -15,6 +15,7 @@ export class TablesComponent {
   http = inject(HttpClient);
   pageSize = new BehaviorSubject<number>(5);
   currentPage = new BehaviorSubject<number>(1);
+  dataSize = new BehaviorSubject<number>(0);
   searchSubject = new Subject<string>();
   searchText = this.searchSubject.pipe(
     startWith(""),
@@ -28,8 +29,10 @@ export class TablesComponent {
         let offset = (page - 1) * pageSize;
         return search.length !== 0 ?
           this.http.get<Array<any>>(url).pipe(
-            map(items => items.filter(item => item?.title.toLowerCase().includes(search.toLowerCase())))
+            tap(items => this.dataSize.next(items.filter(item => item?.title.toLowerCase().includes(search.toLowerCase())).length)),
+            map(items => items.filter(item => item?.title.toLowerCase().includes(search.toLowerCase())).splice(offset, offset + pageSize)),
           ) : this.http.get<Array<any>>(url).pipe(
+            tap(items => this.dataSize.next(items.length)),
             map((items => items.slice(offset, offset + pageSize)))
           )
       })
