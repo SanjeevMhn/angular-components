@@ -1,10 +1,49 @@
 <div class="container">
-    @if(results$ | async; as results){
+    <div class="data-card-container">
+        @if(dataCardList | async; as cards){
+        @for(card of cards;track card){
+        <div class="data-card">
+            @if(card.icon !== null){
+            <div class="card-icon">
+                <div class="card-icon-container" [innerHTML]="card.icon"></div>
+            </div>
+            }
+            <div class="title">{{card.name}}</div>
+            <div class="data">{{card.data}}</div>
+            <a href="javascript:void(0)" class="show-more">View Details</a>
+        </div>
+        }
+        }
+    </div>
+
+    <div class="data-grid-container">
+        @if(popularProducts$ | async; as products){
+            <app-data-table 
+             [pageSize]="5"
+             [dataSize]="products.length"
+             [data]="products"
+             [title]="'Popular Products'"
+             (gridEvent)="popularGridPageEvent($event)"
+             (searchGridEvent)="searchPopularGrid($event)"
+             class="data-table"
+            ></app-data-table>
+        }
+        @if(recentAddedProducts$ | async; as products){
+            <app-data-table 
+             [pageSize]="5"
+             [dataSize]="products.length"
+             [data]="products"
+             [title]="'Recently Added Products'"
+             class="data-table"
+            ></app-data-table>
+        }
+    </div>
+    <!-- @if(results$ | async; as results){
     <app-search-select 
         [results]="results" 
         (search)="searchResults($event)" 
         (selectedItem)="selectedItem($event)">
     </app-search-select>
     }
-    <div class="selected-option">Seletected Option: {{dropdownSelectedItem}}</div>
+    <div class="selected-option">Seletected Option: {{dropdownSelectedItem}}</div> -->
 </div>
