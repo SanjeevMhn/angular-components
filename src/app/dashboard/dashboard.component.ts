@@ -1,12 +1,12 @@
 import { AfterViewInit, Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { DataTableComponent } from "../data-table/data-table.component";
 import { SearchSelectComponent } from "../search-select/search-select.component";
-import { BehaviorSubject, combineLatest, debounceTime, map, Observable, of, startWith, Subject, switchMap } from 'rxjs';
+import { BehaviorSubject, combineLatest, debounceTime, delay, map, Observable, of, startWith, Subject, switchMap } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { ArcElement, CategoryScale, Chart, ChartData, ChartMeta, ChartType, Legend, LinearScale, LineController, LineElement, PieController, PointElement, Ticks, Title } from 'chart.js';
+import { ArcElement, CategoryScale, Chart, ChartData, ChartMeta, ChartType, Legend, LinearScale, LineController, LineElement, PieController, PointElement, Ticks, Title, Tooltip } from 'chart.js';
 
-Chart.register(LineController, LineElement, LinearScale, Title, CategoryScale, PointElement, Legend, PieController, ArcElement)
+Chart.register(LineController, LineElement, LinearScale, Title, CategoryScale, PointElement, Legend, PieController, ArcElement, Tooltip)
 
 @Component({
   selector: 'app-dashboard',
@@ -28,9 +28,7 @@ export class DashboardComponent implements AfterViewInit {
       data: [12, 19, 3, 5, 2, 3, 22, 15, 12, 7],
       backgroundColor: "rgba(255, 99, 132,0.4)",
       borderColor: "rgba(255, 99, 132)",
-      fill: true,
       borderWidth: 3,
-      hoverOffset: 4
     }],
   };
 
@@ -52,8 +50,7 @@ export class DashboardComponent implements AfterViewInit {
         'rgb(86, 255, 218)'
       ],
       hoverOffset: 4,
-      drawActiveElementsOnTop: true
-    }]
+    }],
   }
 
   ngAfterViewInit(): void {
@@ -170,7 +167,10 @@ export class DashboardComponent implements AfterViewInit {
       category: 'clothes',
       sales: 100
     },
-  ])
+  ]).pipe(
+    delay(3000),
+    map(items => items)
+  )
 
   recentAddedProducts$ = new BehaviorSubject<Array<{
     id: number,
@@ -197,7 +197,10 @@ export class DashboardComponent implements AfterViewInit {
       name: 'Oversized Tshirts',
       category: 'clothes',
     },
-  ])
+  ]).pipe(
+    delay(3000),
+    map(items => items)
+  )
 
   searchResults(keyword: string) {
     this.searchSubject.next(keyword);

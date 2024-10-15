@@ -1,4 +1,5 @@
 <h2 class="header-text">Tables</h2>
+<div class="grid-container">
 @if(dataSource$ | async; as data){
     <app-data-table
      [pageSize]="pageSize | async"
@@ -12,3 +13,4 @@
 }@else {
     <div class="loading-table"></div>
 }
+</div>
