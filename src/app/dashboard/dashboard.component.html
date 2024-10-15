@@ -16,6 +16,17 @@
         }
     </div>
 
+    <div class="chart-container">
+        <div class="canvas-container">
+            <h2 class="header-text">New Members Per Month</h2>
+            <canvas #lineChart id="lineChart"></canvas>
+        </div>
+        <div class="canvas-container">
+            <h2 class="header-text">Orders Per Location</h2>
+            <canvas #pieChart id="pieChart"></canvas>
+        </div>
+    </div>
+
     <div class="data-grid-container">
         @if(popularProducts$ | async; as products){
             <app-data-table 

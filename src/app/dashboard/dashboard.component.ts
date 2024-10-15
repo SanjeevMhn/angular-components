@@ -1,9 +1,12 @@
-import { Component, inject } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { DataTableComponent } from "../data-table/data-table.component";
 import { SearchSelectComponent } from "../search-select/search-select.component";
 import { BehaviorSubject, combineLatest, debounceTime, map, Observable, of, startWith, Subject, switchMap } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { ArcElement, CategoryScale, Chart, ChartData, ChartMeta, ChartType, Legend, LinearScale, LineController, LineElement, PieController, PointElement, Ticks, Title } from 'chart.js';
+
+Chart.register(LineController, LineElement, LinearScale, Title, CategoryScale, PointElement, Legend, PieController, ArcElement)
 
 @Component({
   selector: 'app-dashboard',
@@ -12,8 +15,70 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
-export class DashboardComponent {
+export class DashboardComponent implements AfterViewInit {
 
+  @ViewChild('lineChart') lineChart!: ElementRef;
+  @ViewChild('pieChart') pieChart!: ElementRef;
+  lineCanvas!: CanvasRenderingContext2D | null;
+  pieCanvas!: CanvasRenderingContext2D | null;
+  lineChartData: ChartData = {
+    labels: ['January', "February", "March", "April", "May", "June", "July", "August", "September", "October"],
+    datasets: [{
+      label: "New Members per month",
+      data: [12, 19, 3, 5, 2, 3, 22, 15, 12, 7],
+      backgroundColor: "rgba(255, 99, 132,0.4)",
+      borderColor: "rgba(255, 99, 132)",
+      fill: true,
+      borderWidth: 3,
+      hoverOffset: 4
+    }],
+  };
+
+  pieChartData: ChartData = {
+    labels: [
+      'Kathmandu',
+      'Lalitpur',
+      'Bhaktapur',
+      'Dharan',
+      'Pokhara'
+    ],
+    datasets: [{
+      data: [800, 300, 500, 250, 200],
+      backgroundColor: [
+        'rgb(255, 99, 132)',
+        'rgb(54, 162, 235)',
+        'rgb(255, 205, 86)',
+        'rgb(179, 86, 255)',
+        'rgb(86, 255, 218)'
+      ],
+      hoverOffset: 4,
+      drawActiveElementsOnTop: true
+    }]
+  }
+
+  ngAfterViewInit(): void {
+    this.lineCanvas = (<HTMLCanvasElement>this.lineChart.nativeElement).getContext('2d');
+    if (this.lineCanvas !== null) {
+      const c: Chart = new Chart(this.lineCanvas, {
+        type: 'line',
+        data: this.lineChartData,
+        options: {
+          responsive: true,
+        },
+      })
+    }
+
+    this.pieCanvas = (<HTMLCanvasElement>this.pieChart.nativeElement).getContext('2d');
+    if (this.pieCanvas !== null) {
+      const c: Chart = new Chart(this.pieCanvas, {
+        type: 'pie',
+        data: this.pieChartData,
+        options: {
+          responsive: true,
+        },
+      })
+    }
+  }
 
   options$ = new BehaviorSubject<Array<string>>([
     "Kathmandu",
@@ -142,7 +207,7 @@ export class DashboardComponent {
     this.dropdownSelectedItem = item;
   }
 
-  popularGridPageEvent(event: any){}
+  popularGridPageEvent(event: any) { }
 
-  searchPopularGrid(event: any){}
+  searchPopularGrid(event: any) { }
 }
