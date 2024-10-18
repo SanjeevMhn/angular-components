@@ -1,51 +1,53 @@
-<div class="data-table-container">
-    <div class="toolbox">
-        @if(title){
-        <h2 class="data-table-header secondary-text">{{title}}</h2>
-        }
-        <div class="search-form">
-            <div class="form-group">
-                <input type="text" name="search" id="search" class="form-control" placeholder="Search..."
-                    (input)="searchGrid($event)">
+<div class="container">
+    <div class="data-table-container">
+        <div class="toolbox">
+            @if(title){
+            <h2 class="data-table-header secondary-text">{{title}}</h2>
+            }
+            <div class="search-form">
+                <div class="form-group">
+                    <input type="text" name="search" id="search" class="form-control" placeholder="Search..."
+                        (input)="searchGrid($event)">
+                </div>
             </div>
         </div>
-    </div>
-    <table class="data-table">
-        <thead>
-            <tr>
-                @for(props of data[0] | keyvalue:zero; track props){
-                <th>{{props.key}}</th>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    @for(props of data[0] | keyvalue:zero; track props){
+                    <th>{{props.key}}</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @if(data.length > 0){
+                @for(item of data; track item){
+                <tr>
+                    @for(props of item | keyvalue: zero; track props){
+                    @if(checkIfImage(props.key)){
+                    <td>
+                        <div class="img-container">
+                            <img src="{{props.value}}" alt="">
+                        </div>
+                    </td>
+                    }@else {
+                    <td>{{props.value}}</td>
+                    }
+                    }
+                </tr>
                 }
-            </tr>
-        </thead>
-        <tbody>
-            @if(data.length > 0){
-            @for(item of data; track item){
-            <tr>
-                @for(props of item | keyvalue: zero; track props){
-                @if(checkIfImage(props.key)){
-                <td>
-                    <div class="img-container">
-                        <img src="{{props.value}}" alt="">
-                    </div>
-                </td>
                 }@else {
-                <td>{{props.value}}</td>
-                }
-                }
-            </tr>
-            }
-            }@else {
                 <div class="not-found">
                     Not found
                 </div>
-            }
+                }
 
-        </tbody>
-    </table>
-</div>
-<div class="pagination">
-    <mat-paginator [length]="dataSize" [pageSize]="pageSize" [pageSizeOptions]="[5,10,15,20]"
-        [showFirstLastButtons]="true" (page)="handlePageEvent($event)" aria-label="Select page"
-        class="paginator"></mat-paginator>
+            </tbody>
+        </table>
+    </div>
+    <div class="pagination">
+        <mat-paginator [length]="dataSize" [pageSize]="pageSize" [pageSizeOptions]="[5,10,15,20]"
+            [showFirstLastButtons]="true" (page)="handlePageEvent($event)" aria-label="Select page"
+            class="paginator"></mat-paginator>
+    </div>
 </div>

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { NavbarComponent } from "../navbar/navbar.component";
+import { NavbarComponent, SidebarStateType } from "../navbar/navbar.component";
 import { SidenavComponent } from "../sidenav/sidenav.component";
 
 @Component({
@@ -11,5 +11,11 @@ import { SidenavComponent } from "../sidenav/sidenav.component";
   styleUrl: './base-layout.component.scss'
 })
 export class BaseLayoutComponent {
+
+  currentSidebarState:SidebarStateType | null = null
+
+  setSidebarState(state: SidebarStateType){
+    this.currentSidebarState = state;
+  }
 
 }

@@ -6,6 +6,19 @@
     left: 0;
     width: 25rem;
     height: 100vh;
+    &.small{
+        width: 5.8rem;
+        padding: 1rem;
+        padding-left: 1.7rem;
+        .sidenav-list{
+            .sidenav-link{
+                justify-content: center;
+                .label-text{
+                    display: none;
+                }
+            }
+        }
+    }
 }
 
 .sidenav-list {

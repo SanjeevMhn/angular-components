@@ -1,6 +1,7 @@
-import { Component, inject, Sanitizer } from '@angular/core';
+import { Component, inject, Input, Sanitizer } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { SidebarStateType } from '../navbar/navbar.component';
 
 @Component({
   selector: 'app-sidenav',
@@ -12,6 +13,8 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 export class SidenavComponent {
 
   sanitizer = inject(DomSanitizer)
+
+  @Input() state!:SidebarStateType | null;
 
   menuList: Array<{
     icon: SafeHtml,

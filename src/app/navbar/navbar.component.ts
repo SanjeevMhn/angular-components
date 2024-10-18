@@ -1,8 +1,10 @@
-import { Component, inject } from '@angular/core';
+import { Component, EventEmitter, inject, Output } from '@angular/core';
 import { SearchSelectComponent } from "../search-select/search-select.component";
 import { BehaviorSubject, Subject, startWith, debounceTime, map, combineLatest, switchMap, of } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { Router } from '@angular/router';
+
+export type SidebarStateType = "full" | "small";
 
 @Component({
   selector: 'app-navbar',
@@ -54,5 +56,20 @@ export class NavbarComponent {
 
   logout(){
     this.router.navigate([""]);
+  }
+
+
+
+  sidebarState:SidebarStateType = 'full';
+  @Output() sidebarStateEvent = new EventEmitter();
+
+  toggleSidebar(){
+    if(this.sidebarState === 'full'){
+      this.sidebarState = 'small'
+    }else{
+      this.sidebarState = 'full'
+    }
+
+    this.sidebarStateEvent.emit(this.sidebarState);
   }
 }

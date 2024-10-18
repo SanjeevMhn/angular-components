@@ -1,4 +1,4 @@
-<section class="sidenav">
+<section class="sidenav" [class]="state !== null ? state : ''">
     <ul class="sidenav-list">
         @for(menu of menuList; track menu){
         <li class="sidenav-item">
