@@ -14,8 +14,12 @@
         <table class="data-table">
             <thead>
                 <tr>
-                    @for(props of data[0] | keyvalue:zero; track props){
-                    <th>{{props.key}}</th>
+                    @for(props of data[0] | keyvalue:zero; track props.key){
+                        <app-data-table-header 
+                            [headerText]="props.key" 
+                            (sortColumn)="onColumnSort($event)"
+                            class="d-contents"
+                            />
                     }
                 </tr>
             </thead>

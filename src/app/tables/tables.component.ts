@@ -1,15 +1,25 @@
 import { AsyncPipe, JsonPipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
-import { BehaviorSubject, combineLatest, debounceTime, map, Observable, startWith, Subject, switchMap, tap } from 'rxjs';
-import { DataTableComponent } from "../data-table/data-table.component";
+import {
+  BehaviorSubject,
+  combineLatest,
+  debounceTime,
+  map,
+  Observable,
+  startWith,
+  Subject,
+  switchMap,
+  tap,
+} from 'rxjs';
+import { DataTableComponent } from '../data-table/data-table.component';
 
 @Component({
   selector: 'app-tables',
   standalone: true,
   imports: [AsyncPipe, JsonPipe, DataTableComponent],
   templateUrl: './tables.component.html',
-  styleUrl: './tables.component.scss'
+  styleUrl: './tables.component.scss',
 })
 export class TablesComponent {
   http = inject(HttpClient);
@@ -18,33 +28,57 @@ export class TablesComponent {
   dataSize = new BehaviorSubject<number>(0);
   searchSubject = new Subject<string>();
   searchText = this.searchSubject.pipe(
-    startWith(""),
+    startWith(''),
     debounceTime(800),
-    map(text => text)
-  )
-  dataSource$ = combineLatest(
-    [this.pageSize, this.currentPage, this.searchText]).pipe(
-      switchMap(([pageSize, page, search]) => {
-        let url = 'https://fakestoreapi.com/products';
-        let offset = (page - 1) * pageSize;
-        return search.length !== 0 ?
-          this.http.get<Array<any>>(url).pipe(
-            tap(items => this.dataSize.next(items.filter(item => item?.title.toLowerCase().includes(search.toLowerCase())).length)),
-            map(items => items.filter(item => item?.title.toLowerCase().includes(search.toLowerCase())).splice(offset, offset + pageSize)),
-          ) : this.http.get<Array<any>>(url).pipe(
-            tap(items => this.dataSize.next(items.length)),
-            map((items => items.slice(offset, offset + pageSize)))
+    map((text) => text)
+  );
+  columnSort = new BehaviorSubject<{
+    type: 'asc' | 'desc';
+    col: string;
+  } | null>(null);
+
+  dataSource$ = combineLatest([
+    this.pageSize,
+    this.currentPage,
+    this.searchText,
+  ]).pipe(
+    switchMap(([pageSize, page, search]) => {
+      let url = 'https://fakestoreapi.com/products';
+      let offset = (page - 1) * pageSize;
+      return search.length !== 0
+        ? this.http.get<Array<any>>(url).pipe(
+            tap((items) =>
+              this.dataSize.next(
+                items.filter((item) =>
+                  item?.title.toLowerCase().includes(search.toLowerCase())
+                ).length
+              )
+            ),
+            map((items) =>
+              items
+                .filter((item) =>
+                  item?.title.toLowerCase().includes(search.toLowerCase())
+                )
+                .splice(offset, offset + pageSize)
+            )
           )
-      })
-    )
+        : this.http.get<Array<any>>(url).pipe(
+            tap((items) => this.dataSize.next(items.length)),
+            map((items) => items.slice(offset, offset + pageSize)),
+          );
+    })
+  );
 
   gridEvent(event: any) {
     this.pageSize.next(event.pageSize);
-    this.currentPage.next(event.pageIndex + 1)
+    this.currentPage.next(event.pageIndex + 1);
   }
 
   searchGrid(event: any) {
     this.searchSubject.next(event);
   }
 
+  sortColumn(event: any) {
+    this.columnSort.next(event);
+  }
 }
