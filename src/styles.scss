@@ -113,7 +113,8 @@ mat-paginator {
     border-radius: 0.8rem;
     overflow: hidden;
     min-height: 40rem;
-    box-shadow: 0 0 12px 4px #1f1f1f56;
+    // box-shadow: 0 0 12px 4px #1f1f1f56;
+    box-shadow: 0 0 0 1px #1f1f1f56;
 
     &::before,
     &::after {
