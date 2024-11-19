@@ -1,23 +1,29 @@
 .sidenav {
     background-color: #292929;
-    padding: 1rem 2.5rem;
+    padding: 1rem;
     position: fixed;
     top: 6rem;
     left: 0;
     width: 25rem;
     height: 100vh;
-    &.small{
-        width: 5.8rem;
-        padding: 1rem;
-        padding-left: 1.7rem;
-        .sidenav-list{
-            .sidenav-link{
-                justify-content: center;
-                .label-text{
-                    display: none;
+    transition: all 500ms ease-in-out;
+    z-index: 100;
+
+    &.small {
+        &:not(:hover) {
+            width: 4rem;
+
+            .sidenav-list {
+                .sidenav-link {
+                    justify-content: center;
+
+                    .label-text {
+                        display: none;
+                    }
                 }
             }
         }
+
     }
 }
 
@@ -41,7 +47,7 @@
             background-color: #101010;
         }
 
-        &.active{
+        &.active {
             background-color: #101010;
         }
 
@@ -49,7 +55,8 @@
             color: #fff;
             fill: #fff;
         }
-        .label-text{
+
+        .label-text {
             border-bottom-width: 0;
             outline: none;
         }

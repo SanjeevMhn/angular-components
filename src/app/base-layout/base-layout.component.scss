@@ -1,11 +1,12 @@
 .content{
-    margin-left: 30rem;
-    padding: 2.5rem;
-    height: calc(100vh - 11rem);
+    margin-left: 27rem;
+    padding: 1.5rem;
+    height: calc(100vh - 9rem);
     overflow-y: auto;
     // background-color: #f1f1f1;
     background-color: #f4f2ee;
+    transition: all 500ms ease-in-out;
     &.small{
-        margin-left: 8rem;
+        margin-left: 6rem;
     }
 }
