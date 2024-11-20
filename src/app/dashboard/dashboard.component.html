@@ -32,6 +32,7 @@
              [pageSize]="5"
              [dataSize]="products.length"
              [data]="products"
+             [columns]="popularProductColumns"
              [title]="'Popular Products'"
              (gridEvent)="popularGridPageEvent($event)"
              (searchGridEvent)="searchPopularGrid($event)"
@@ -45,6 +46,7 @@
              [pageSize]="5"
              [dataSize]="products.length"
              [data]="products"
+             [columns]="recentAddedProductsColumns"
              [title]="'Recently Added Products'"
              class="d-contents"
             ></app-data-table>

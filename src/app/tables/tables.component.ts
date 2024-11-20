@@ -12,7 +12,7 @@ import {
   switchMap,
   tap,
 } from 'rxjs';
-import { DataTableComponent } from '../data-table/data-table.component';
+import { ColumnSettings, DataTableComponent } from '../data-table/data-table.component';
 
 @Component({
   selector: 'app-tables',
@@ -36,6 +36,40 @@ export class TablesComponent {
     type: 'asc' | 'desc';
     col: string;
   } | null>(null);
+
+
+  columns:Array<ColumnSettings> = [
+    {
+      name: 'title',
+      searchable: true,
+      sortable: true,
+      display_order: 1
+    },
+    {
+      name: 'price',
+      searchable: true,
+      sortable: true,
+      display_order: 3
+    },
+    {
+      name: 'description',
+      searchable: false,
+      sortable: false,
+      display_order: 5
+    },
+    {
+      name: 'category',
+      searchable: true,
+      sortable: true,
+      display_order: 4
+    },
+    {
+      name: 'image',
+      searchable: false,
+      sortable: false,
+      display_order: 2
+    }
+  ]
 
   dataSource$ = combineLatest([
     this.pageSize,

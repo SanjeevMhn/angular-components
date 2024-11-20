@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
-import { DataTableComponent } from "../data-table/data-table.component";
+import { ColumnSettings, DataTableComponent } from "../data-table/data-table.component";
 import { SearchSelectComponent } from "../search-select/search-select.component";
 import { BehaviorSubject, combineLatest, debounceTime, delay, map, Observable, of, startWith, Subject, switchMap } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
@@ -172,35 +172,82 @@ export class DashboardComponent implements AfterViewInit {
     map(items => items)
   )
 
+  popularProductColumns:Array<ColumnSettings> = [
+    {
+      name: 'name',
+      sortable: true,
+      searchable: true,
+      display_order: 1
+    },
+    {
+      name: 'category',
+      sortable: true,
+      searchable: true,
+      display_order: 2,
+    },
+    {
+      name: 'sales',
+      sortable: true,
+      searchable: true,
+      display_order: 3
+    }
+  ] 
+
   recentAddedProducts$ = new BehaviorSubject<Array<{
     id: number,
     name: string,
     category: string,
+    price: string
   }>>([
     {
       id: 1,
       name: 'Waffle Shirt',
       category: 'clothes',
+      price: '222'
     },
     {
       id: 2,
       name: 'Sweaters',
       category: 'clothes',
+      price: '1300'
     },
     {
       id: 3,
       name: 'Baseball Jackets',
       category: 'clothes',
+      price: '1200'
     },
     {
       id: 4,
       name: 'Oversized Tshirts',
       category: 'clothes',
+      price: '2323'
     },
   ]).pipe(
     delay(3000),
     map(items => items)
   )
+
+  recentAddedProductsColumns: Array<ColumnSettings> = [
+    {
+      name: 'name',
+      searchable: true,
+      sortable: true,
+      display_order: 1
+    },
+    {
+      name: 'category',
+      searchable: true,
+      sortable: true,
+      display_order: 3
+    },
+    {
+      name: 'price',
+      searchable: true,
+      sortable: true,
+      display_order: 2
+    }
+  ]
 
   searchResults(keyword: string) {
     this.searchSubject.next(keyword);

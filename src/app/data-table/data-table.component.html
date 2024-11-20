@@ -14,9 +14,9 @@
         <table class="data-table">
             <thead>
                 <tr>
-                    @for(props of data[0] | keyvalue:zero; track props.key){
+                    @for(col of sortedColumns(); track $index){
                         <app-data-table-header 
-                            [headerText]="props.key" 
+                            [column]="col" 
                             (sortColumn)="onColumnSort($event)"
                             class="d-contents"
                             />
@@ -27,15 +27,15 @@
                 @if(data.length > 0){
                 @for(item of data; track item){
                 <tr>
-                    @for(props of item | keyvalue: zero; track props){
-                    @if(checkIfImage(props.key)){
+                    @for(col of sortedColumns(); track $index){
+                    @if(checkIfImage(col.name)){
                     <td>
                         <div class="img-container">
-                            <img src="{{props.value}}" alt="">
+                            <img src="{{item[col.name]}}" alt="">
                         </div>
                     </td>
                     }@else {
-                    <td>{{props.value}}</td>
+                    <td>{{item[col.name]}}</td>
                     }
                     }
                 </tr>

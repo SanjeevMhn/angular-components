@@ -3,6 +3,13 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { DataTableHeaderComponent } from './data-table-header/data-table-header.component';
 
+export type ColumnSettings = {
+  name: string, 
+  sortable: boolean,
+  searchable: boolean,
+  display_order: number
+}
+
 @Component({
   selector: 'app-data-table',
   standalone: true,
@@ -12,6 +19,7 @@ import { DataTableHeaderComponent } from './data-table-header/data-table-header.
 })
 export class DataTableComponent {
   @Input() data!: Array<any>;
+  @Input() columns!: Array<ColumnSettings>;
   @Input() title!: string;
   @Input() pageSize!: number | null;
   @Input() dataSize!: number | null;
@@ -22,6 +30,10 @@ export class DataTableComponent {
 
   zero(): number {
     return 0;
+  }
+
+  sortedColumns(): Array<ColumnSettings>{
+    return this.columns.sort((a,b) => a.display_order - b.display_order);
   }
 
   checkIfImage(obj: any): boolean {

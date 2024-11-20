@@ -1,5 +1,5 @@
 .content{
-    margin-left: 27rem;
+    margin-left: 28rem;
     padding: 1.5rem;
     height: calc(100vh - 9rem);
     overflow-y: auto;
@@ -7,6 +7,6 @@
     background-color: #f4f2ee;
     transition: all 500ms ease-in-out;
     &.small{
-        margin-left: 6rem;
+        margin-left: 7rem;
     }
 }
