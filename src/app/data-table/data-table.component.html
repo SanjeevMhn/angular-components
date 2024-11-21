@@ -17,6 +17,7 @@
                     @if(actionColumn){
                         <th class="action-header">Action</th>
                     }
+                    <th class="action-header">s.n</th>
                     @for(col of sortedColumns(); track $index){
                         <app-data-table-header 
                             [column]="col" 
@@ -43,6 +44,7 @@
                             </div>
                         </td>
                     }
+                    <td>{{$index + 1}}</td>
                     @for(col of sortedColumns(); track $index){
                     @if(checkIfImage(col.name)){
                     <td>
