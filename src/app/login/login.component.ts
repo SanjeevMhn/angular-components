@@ -14,8 +14,8 @@ export class LoginComponent {
   fb = inject(FormBuilder);
   submitBtnPressed:boolean = false;
   loginForm:FormGroup = this.fb.group({
-    email: ['',[Validators.required,Validators.email]],
-    password: ['',[Validators.required,Validators.minLength(6)]]
+    email: ['admin@admin.com',[Validators.required,Validators.email]],
+    password: ['test123',[Validators.required,Validators.minLength(6)]]
   });
   
   login(){

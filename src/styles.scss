@@ -48,8 +48,8 @@ body {
     justify-content: center;
 
     svg {
-        height: 95%;
-        width: 95%;
+        height: 100%;
+        width: 100%;
         object-fit: cover;
     }
 }
@@ -60,6 +60,7 @@ body {
     outline: none;
     border-width: 0;
     background-color: unset;
+    cursor: pointer;
 }
 
 html,

@@ -1,4 +1,4 @@
-<nav class="main-nav">
+<nav class="main-nav" [class]="sidebarState">
     <div class="left-control">
         <button type="button" class="hamburger-btn" (click)="toggleSidebar()">
             <span class="icon-container">
@@ -9,9 +9,7 @@
             </span>
 
         </button>
-        <div class="company-logo">
-            Company Name
-        </div>
+       
     </div>
 
 

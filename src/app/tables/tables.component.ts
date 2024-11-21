@@ -12,7 +12,11 @@ import {
   switchMap,
   tap,
 } from 'rxjs';
-import { ColumnSettings, DataTableComponent } from '../data-table/data-table.component';
+import {
+  ColumnSettings,
+  DataTableComponent,
+} from '../data-table/data-table.component';
+import { SearchColumn } from '../data-table/data-table-header/data-table-header.component';
 
 @Component({
   selector: 'app-tables',
@@ -32,51 +36,57 @@ export class TablesComponent {
     debounceTime(800),
     map((text) => text)
   );
+  searchColumnSubject = new Subject<SearchColumn>();
+  searchColumnData = this.searchColumnSubject.pipe(
+    startWith(null),
+    debounceTime(800),
+    map((search) => search)
+  );
   columnSort = new BehaviorSubject<{
     type: 'asc' | 'desc';
     col: string;
   } | null>(null);
 
-
-  columns:Array<ColumnSettings> = [
+  columns: Array<ColumnSettings> = [
     {
       name: 'title',
       searchable: true,
       sortable: true,
-      display_order: 1
+      display_order: 1,
     },
     {
       name: 'price',
       searchable: true,
       sortable: true,
-      display_order: 3
+      display_order: 3,
     },
     {
       name: 'description',
       searchable: false,
       sortable: false,
-      display_order: 5
+      display_order: 5,
     },
     {
       name: 'category',
       searchable: true,
       sortable: true,
-      display_order: 4
+      display_order: 4,
     },
     {
       name: 'image',
       searchable: false,
       sortable: false,
-      display_order: 2
-    }
-  ]
+      display_order: 2,
+    },
+  ];
 
   dataSource$ = combineLatest([
     this.pageSize,
     this.currentPage,
     this.searchText,
+    this.searchColumnData,
   ]).pipe(
-    switchMap(([pageSize, page, search]) => {
+    switchMap(([pageSize, page, search, colSearch]) => {
       let url = 'https://fakestoreapi.com/products';
       let offset = (page - 1) * pageSize;
       return search.length !== 0
@@ -96,10 +106,33 @@ export class TablesComponent {
                 .splice(offset, offset + pageSize)
             )
           )
-        : this.http.get<Array<any>>(url).pipe(
-            tap((items) => this.dataSize.next(items.length)),
-            map((items) => items.slice(offset, offset + pageSize)),
-          );
+        : colSearch !== null
+          ? this.http.get<Array<any>>(url).pipe(
+              tap((items) =>
+                this.dataSize.next(
+                  items.filter((item) =>
+                    item[colSearch.column]
+                      .toString()
+                      .toLowerCase()
+                      .includes(colSearch.search.toString().toLowerCase())
+                  ).length
+                )
+              ),
+              map((items) =>
+                items
+                  .filter((item) =>
+                    item[colSearch.column]
+                      .toString()
+                      .toLowerCase()
+                      .includes(colSearch.search.toString().toLowerCase())
+                  )
+                  .splice(offset, offset + pageSize)
+              )
+            )
+          : this.http.get<Array<any>>(url).pipe(
+              tap((items) => this.dataSize.next(items.length)),
+              map((items) => items.slice(offset, offset + pageSize))
+            );
     })
   );
 
@@ -114,5 +147,9 @@ export class TablesComponent {
 
   sortColumn(event: any) {
     this.columnSort.next(event);
+  }
+
+  searchColumn(event: any) {
+    this.searchColumnSubject.next(event);
   }
 }

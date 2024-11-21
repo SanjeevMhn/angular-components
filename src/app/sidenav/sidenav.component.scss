@@ -1,18 +1,43 @@
+.company-logo {
+  padding: 1rem 1.5rem;
+  margin-bottom: 2rem;
+  height: 4rem;
+  position: relative;
+  display: flex;
+  align-items: center;
+  .text {
+    font-weight: 500;
+    font-size: 2.2rem;
+    color: #fff;
+    white-space: nowrap;
+    animation: textShow 400ms ease-in-out 0s 1 forwards;
+  }
+  &::after{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 1px;
+    background-color: #d8d8d8;
+  }
+}
 .sidenav {
   background-color: #292929;
-  padding: 1rem 1.5rem;
   position: fixed;
-  top: 6rem;
+  top: 0;
   left: 0;
   width: 25rem;
   height: 100vh;
   transition: all 400ms ease-in-out;
-  z-index: 100;
+  z-index: 199;
 
   &.small {
+    box-shadow: 0 4px 12px 12px #00000065;
     &:not(:hover) {
-      width: 4rem;
-
+      width: 8rem;
+      box-shadow: none;
       .sidenav-list {
         .sidenav-link {
           justify-content: center;
@@ -20,6 +45,28 @@
           .label-text {
             display: none;
           }
+        }
+      }
+
+      .company-logo {
+        .text {
+          display: none;
+        }
+        &::before {
+          content: "CN";
+          position: absolute;
+          color: #000;
+          font-weight: 500;
+          font-size: 1.7rem;
+          height: 4rem;
+          width: 4rem;
+          border-radius: 50%;
+          background-color: #fff;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          left: 50%;
+          transform: translateX(-50%);
         }
       }
     }
@@ -33,6 +80,7 @@
   list-style-type: none;
   padding: 0;
   margin: 0;
+  padding: 0 1.5rem;
 
   .sidenav-link {
     display: flex;

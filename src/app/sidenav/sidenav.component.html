@@ -1,14 +1,21 @@
 <section class="sidenav" [class]="state !== null ? state : ''">
-    <ul class="sidenav-list">
-        @for(menu of menuList; track menu){
-        <li class="sidenav-item">
-            <a [routerLink]="menu.route" [routerLinkActive]="'active'" class="sidenav-link">
-                <span class="icon-container">
-                    <div [innerHTML]="menu.icon"></div>
-                </span>
-                <span class="label-text">{{menu.name}}</span>
-            </a>
-        </li>
-        }
-    </ul>
+  <div class="company-logo">
+    <h4 class="text">Company Name</h4>
+  </div>
+  <ul class="sidenav-list">
+    @for(menu of menuList; track menu){
+    <li class="sidenav-item">
+      <a
+        [routerLink]="menu.route"
+        [routerLinkActive]="'active'"
+        class="sidenav-link"
+      >
+        <span class="icon-container">
+          <div [innerHTML]="menu.icon"></div>
+        </span>
+        <span class="label-text">{{ menu.name }}</span>
+      </a>
+    </li>
+    }
+  </ul>
 </section>

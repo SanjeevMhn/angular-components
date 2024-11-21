@@ -16,7 +16,7 @@
         </span>
         @if(column.searchable){
             <span class="search-field">
-                <input type="text" name="" id="" class="form-control" placeholder="Search...">
+                <input type="text" name="field" id="" class="form-control" placeholder="Search..." (input)="searchColumn($event, column)">
             </span>
         }
     </div>

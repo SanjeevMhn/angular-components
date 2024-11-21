@@ -13,7 +13,7 @@ export type ColumnSettings = {
 @Component({
   selector: 'app-data-table',
   standalone: true,
-  imports: [KeyValuePipe, JsonPipe, MatPaginator, DataTableHeaderComponent],
+  imports: [MatPaginator, DataTableHeaderComponent],
   templateUrl: './data-table.component.html',
   styleUrl: './data-table.component.scss',
 })
@@ -23,10 +23,12 @@ export class DataTableComponent {
   @Input() title!: string;
   @Input() pageSize!: number | null;
   @Input() dataSize!: number | null;
+  @Input() actionColumn:boolean = true;
 
   @Output() gridEvent = new EventEmitter();
   @Output() searchGridEvent = new EventEmitter();
   @Output() sortColumn = new EventEmitter();
+  @Output() searchColumn = new EventEmitter();
 
   zero(): number {
     return 0;
@@ -66,5 +68,9 @@ export class DataTableComponent {
                   .localeCompare(a[`${event.col}`].toLowerCase())
               : b[`${event.col}`] - a[`${event.col}`]
           );
+  }
+  
+  onColumnSearch(event: any){
+    this.searchColumn.emit(event);
   }
 }

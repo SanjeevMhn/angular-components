@@ -1,10 +1,18 @@
 th {
-  border-bottom: 1px solid #d7d7d7;
-  border-left: 1px solid #b8b8b8;
-
+  border-bottom: 1px solid #b8b8b8;
   background-color: #e7e7e7;
+  position: relative;
+  &:after{
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background-color: #b8b8b8;
+  }
   .inner-container {
-    display: inline-flex;
+    display: flex;
     flex-direction: column;
     font-weight: 500;
     text-transform: uppercase;
@@ -15,9 +23,9 @@ th {
     // border-right: 1px solid #b8b8b8;
   }
 
-  .search-field{
+  .search-field {
     // padding: 0 1.25rem;
-    input{
+    input {
       padding: 0.5rem;
       width: calc(100% - 1rem);
       outline: unset;

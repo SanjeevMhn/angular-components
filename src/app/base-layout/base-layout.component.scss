@@ -1,12 +1,15 @@
 .content{
-    margin-left: 28rem;
+    --offset: 25rem;
+    --navbar: 6rem;
+    margin-left: var(--offset);
+    // margin-top: 6rem;;
     padding: 1.5rem;
-    height: calc(100vh - 9rem);
     overflow-y: auto;
     // background-color: #f1f1f1;
     background-color: #f4f2ee;
-    transition: all 500ms ease-in-out;
+    transition: all 400ms ease-in-out;
+    height: calc(100vh - calc(var(--navbar) + 3rem));
     &.small{
-        margin-left: 7rem;
+        --offset: 8rem;
     }
 }

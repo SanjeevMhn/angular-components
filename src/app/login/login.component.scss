@@ -29,5 +29,11 @@
         background-color: #fff;
         // backdrop-filter: blur(7px)!important;
         border: 1px solid #ffffff22;
+        .form-label{
+            font-weight: 500;
+        }
+        .form-title{
+            font-size: 2.8rem;
+        }
     }
 }
