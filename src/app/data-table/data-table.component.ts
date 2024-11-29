@@ -1,7 +1,6 @@
-import { JsonPipe, KeyValuePipe } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { DataTableHeaderComponent } from './data-table-header/data-table-header.component';
+import { DataTableHeaderComponent, SearchColumn } from './data-table-header/data-table-header.component';
 
 export type ColumnSettings = {
   name: string, 

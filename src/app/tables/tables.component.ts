@@ -36,12 +36,8 @@ export class TablesComponent {
     debounceTime(800),
     map((text) => text)
   );
-  searchColumnSubject = new Subject<SearchColumn>();
-  searchColumnData = this.searchColumnSubject.pipe(
-    startWith(null),
-    debounceTime(800),
-    map((search) => search)
-  );
+  searchColumnSubject = new BehaviorSubject<Array<SearchColumn>>([]);
+
   columnSort = new BehaviorSubject<{
     type: 'asc' | 'desc';
     col: string;
@@ -84,7 +80,7 @@ export class TablesComponent {
     this.pageSize,
     this.currentPage,
     this.searchText,
-    this.searchColumnData,
+    this.searchColumnSubject,
   ]).pipe(
     switchMap(([pageSize, page, search, colSearch]) => {
       let url = 'https://fakestoreapi.com/products';
@@ -106,35 +102,65 @@ export class TablesComponent {
                 .splice(offset, offset + pageSize)
             )
           )
-        : colSearch !== null
-          ? this.http.get<Array<any>>(url).pipe(
-              tap((items) =>
-                this.dataSize.next(
-                  items.filter((item) =>
-                    item[colSearch.column]
-                      .toString()
-                      .toLowerCase()
-                      .includes(colSearch.search.toString().toLowerCase())
-                  ).length
-                )
-              ),
-              map((items) =>
-                items
-                  .filter((item) =>
-                    item[colSearch.column]
-                      .toString()
-                      .toLowerCase()
-                      .includes(colSearch.search.toString().toLowerCase())
-                  )
-                  .splice(offset, offset + pageSize)
+        : colSearch.length > 0
+        ? this.http.get<Array<any>>(url).pipe(
+            tap((items) => {
+              console.log(colSearch);
+              let filteredItems = this.searchDataByColumn(items, colSearch);
+              this.dataSize.next(filteredItems.length);
+            }),
+            map((items) =>
+              this.searchDataByColumn(items, colSearch).splice(
+                offset,
+                offset + pageSize
               )
             )
-          : this.http.get<Array<any>>(url).pipe(
-              tap((items) => this.dataSize.next(items.length)),
-              map((items) => items.slice(offset, offset + pageSize))
-            );
+          )
+        : this.http.get<Array<any>>(url).pipe(
+            tap((items) => this.dataSize.next(items.length)),
+            map((items) => items.slice(offset, offset + pageSize))
+          );
     })
   );
+
+  filtered: Array<any> = []
+
+  searchDataByColumn(
+    items: Array<any>,
+    colSearch: Array<SearchColumn>
+  ): Array<any> {
+    if (this.filtered.length == 0) {
+      colSearch.forEach((col) => {
+        this.filtered = items.filter((item) => {
+          if (
+            item[col.column]
+              .toString()
+              .toLowerCase()
+              .includes(col.search.toString().toLowerCase())
+          ) {
+            return item
+          }
+        });
+      });
+    } else if (this.filtered.length > 0) {
+      debugger;
+      console.log(this.filtered);
+      colSearch.forEach((col) => {
+        this.filtered = this.filtered.filter((item) => {
+          if (
+            item[col.column]
+              .toString()
+              .toLowerCase()
+              .includes(col.search.toString().toLowerCase())
+          ) {
+            return item
+          }
+        });
+      });
+    }
+
+    return this.filtered;
+  }
 
   gridEvent(event: any) {
     this.pageSize.next(event.pageSize);
@@ -150,6 +176,14 @@ export class TablesComponent {
   }
 
   searchColumn(event: any) {
-    this.searchColumnSubject.next(event);
+    let searchItems: Array<SearchColumn> = [];
+    searchItems = this.searchColumnSubject.getValue();
+    searchItems = searchItems.filter((item) => item.column !== event.column);
+    searchItems.push(event);
+    searchItems = searchItems.filter((item) => item.search !== '');
+    if(searchItems.length == 0){
+      this.filtered = [];
+    }
+    this.searchColumnSubject.next(searchItems);
   }
 }
