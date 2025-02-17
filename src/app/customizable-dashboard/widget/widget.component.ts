@@ -35,19 +35,17 @@ import { DynamicWidgetService, Widget } from '../../dynamic-widget.service';
         <div class="control">
           <p>Width</p>
           <ul class="option">
-            <li [class.active]="widget.cols == 1" (click)="store.updateWidget(widget.id,{cols: 1})">1</li>
-            <li [class.active]="widget.cols == 2"  (click)="store.updateWidget(widget.id,{cols: 2})">2</li>
-            <li [class.active]="widget.cols == 3" (click)="store.updateWidget(widget.id,{cols: 3})">3</li>
-            <li [class.active]="widget.cols == 4" (click)="store.updateWidget(widget.id,{cols: 4})">4</li>
+            @for(opt of options; track $index){
+              <li [class.active]="widget.cols == opt" (click)="store.updateWidget(widget.id,{cols: opt})">{{opt}}</li>
+            }
           </ul>
         </div>
         <div class="control">
           <p>Height</p>
           <ul class="option">
-            <li [class.active]="widget.rows == 1" (click)="store.updateWidget(widget.id,{rows: 1})">1</li>
-            <li [class.active]="widget.rows == 2" (click)="store.updateWidget(widget.id,{rows: 2})">2</li>
-            <li [class.active]="widget.rows == 3" (click)="store.updateWidget(widget.id,{rows: 3})">3</li>
-            <li [class.active]="widget.rows == 4" (click)="store.updateWidget(widget.id,{rows: 4})">4</li>
+          @for(opt of options; track $index){
+            <li [class.active]="widget.rows == opt" (click)="store.updateWidget(widget.id,{rows: opt})">{{opt}}</li>
+          }
           </ul>
         </div>
       </div>
@@ -134,6 +132,7 @@ export class WidgetComponent {
   @Input() widget!: Widget;
   store = inject(DynamicWidgetService)
   showOption = false;
+  options: Array<number> = [1, 2, 3, 4, 5];
 
   toggleOptions(state = false) {
     this.showOption = state;
@@ -141,18 +140,18 @@ export class WidgetComponent {
 
   draggedItem: Widget | null = null
 
-  onDragStart(event: DragEvent, widget:Widget){
+  onDragStart(event: DragEvent, widget: Widget) {
     this.draggedItem = widget
-    event.dataTransfer?.setData('text/plain',JSON.stringify(widget))
+    event.dataTransfer?.setData('text/plain', JSON.stringify(widget))
     event.dataTransfer!.effectAllowed = "move"
     event.dataTransfer!.dropEffect = "move"
   }
 
-  onDragOver(event: DragEvent){
+  onDragOver(event: DragEvent) {
     event.preventDefault();
   }
 
-  onDrop(event: DragEvent, widget: Widget){
+  onDrop(event: DragEvent, widget: Widget) {
     event.preventDefault();
     let draggedWidget = JSON.parse(event.dataTransfer?.getData("text")!)
     this.store.moveWidgets(draggedWidget, widget)
