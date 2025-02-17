@@ -7,7 +7,8 @@ import { DynamicWidgetService, Widget } from '../../dynamic-widget.service';
   imports: [],
   template: `
     @if(widget){
-    <article class="widget-container">
+    <article class="widget-container" draggable="true" (dragstart)="onDragStart($event, widget)" (drop)="onDrop($event, widget)" (dragover)="onDragOver($event)">
+
       <button type="button" class="settings btn" (click)="toggleOptions(true)">
         <span class="icon-container">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -128,7 +129,6 @@ import { DynamicWidgetService, Widget } from '../../dynamic-widget.service';
     '[style.grid-area]':
       '"span " + (widget.rows ?? 1) + "/ span " + (widget.cols ?? 1)',
   },
-  providers: [DynamicWidgetService]
 })
 export class WidgetComponent {
   @Input() widget!: Widget;
@@ -137,5 +137,24 @@ export class WidgetComponent {
 
   toggleOptions(state = false) {
     this.showOption = state;
+  }
+
+  draggedItem: Widget | null = null
+
+  onDragStart(event: DragEvent, widget:Widget){
+    this.draggedItem = widget
+    event.dataTransfer?.setData('text/plain',JSON.stringify(widget))
+    event.dataTransfer!.effectAllowed = "move"
+    event.dataTransfer!.dropEffect = "move"
+  }
+
+  onDragOver(event: DragEvent){
+    event.preventDefault();
+  }
+
+  onDrop(event: DragEvent, widget: Widget){
+    event.preventDefault();
+    let draggedWidget = JSON.parse(event.dataTransfer?.getData("text")!)
+    this.store.moveWidgets(draggedWidget, widget)
   }
 }

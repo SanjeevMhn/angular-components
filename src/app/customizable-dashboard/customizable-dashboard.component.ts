@@ -9,7 +9,6 @@ import { WidgetComponent } from "./widget/widget.component";
   imports: [AsyncPipe, WidgetComponent],
   templateUrl: './customizable-dashboard.component.html',
   styleUrl: './customizable-dashboard.component.scss',
-  providers: [DynamicWidgetService]
 })
 export class CustomizableDashboardComponent {
 
