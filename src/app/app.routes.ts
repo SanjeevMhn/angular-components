@@ -4,6 +4,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { FormsComponent } from './forms/forms.component';
 import { TablesComponent } from './tables/tables.component';
 import { LoginComponent } from './login/login.component';
+import { CustomizableDashboardComponent } from './customizable-dashboard/customizable-dashboard.component';
 
 export const routes: Routes = [
 	{ 
@@ -13,6 +14,7 @@ export const routes: Routes = [
 			{ path: 'dashboard', component: DashboardComponent },
 			{ path: 'forms', component: FormsComponent },
 			{ path: 'tables', component: TablesComponent },
+			{ path: 'customizable-dashboard', component: CustomizableDashboardComponent },
 			{ path: '', redirectTo: 'dashboard', pathMatch: 'full'},
 		]
 	},

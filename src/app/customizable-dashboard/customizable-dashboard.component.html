@@ -1,0 +1,6 @@
+<h2 class="secondary-text">Customizable Dashboard</h2>
+<div class="widget-container">
+    @for (w of store.widgets$ | async; track w.id) {
+        <app-widget [widget]="w" />
+    }
+</div>
