@@ -13,4 +13,7 @@ import { WidgetComponent } from "./widget/widget.component";
 export class CustomizableDashboardComponent {
 
   store = inject(DynamicWidgetService);
+  toggleEditMode(){
+    this.store.editMode = !this.store.editMode
+  }
 }

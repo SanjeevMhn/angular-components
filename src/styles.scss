@@ -1,6 +1,6 @@
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
-@use '@angular/material' as mat;
+@use "@angular/material" as mat;
 // Plus imports for other components in your app.
 
 // Include the common styles for Angular Material. We include this here so that you only
@@ -9,18 +9,24 @@
 @include mat.core();
 
 // Define the theme object.
-$custom-components-theme: mat.define-theme((color: (theme-type: light,
-                primary: mat.$azure-palette,
-                tertiary: mat.$blue-palette,
-            ),
-            density: (scale: 0,
-            )));
+$custom-components-theme: mat.define-theme(
+  (
+    color: (
+      theme-type: light,
+      primary: mat.$azure-palette,
+      tertiary: mat.$blue-palette,
+    ),
+    density: (
+      scale: 0,
+    ),
+  )
+);
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 :root {
-    @include mat.all-component-themes($custom-components-theme);
+  @include mat.all-component-themes($custom-components-theme);
 }
 
 // Comment out the line below if you want to use the pre-defined typography utility classes.
@@ -30,135 +36,194 @@ $custom-components-theme: mat.define-theme((color: (theme-type: light,
 // Comment out the line below if you want to use the deprecated `color` inputs.
 // @include mat.color-variants-backwards-compatibility($custom-components-theme);
 /* You can add global styles to this file, and also import other style files */
-@import './vars';
-@import './reset';
-@import './forms';
+@import "./vars";
+@import "./reset";
+@import "./forms";
 
 body {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-size: 1.6rem;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 1.6rem;
 }
 
 .icon-container {
-    --size: 2rem;
-    width: var(--size);
-    height: var(--size);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  --size: 2rem;
+  width: var(--size);
+  height: var(--size);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    svg {
-        height: 100%;
-        width: 100%;
-        object-fit: cover;
-    }
+  svg {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
 }
 
 .btn {
-    padding: 0;
-    margin: 0;
-    outline: none;
-    border-width: 0;
-    background-color: unset;
-    cursor: pointer;
+  padding: 0;
+  margin: 0;
+  outline: none;
+  border-width: 0;
+  background-color: unset;
+  cursor: pointer;
 }
 
 html,
 body {
-    height: 100%;
+  height: 100%;
 }
 
 body {
-    margin: 0;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 mat-option {
-    >* {
-        font-size: 1.5rem !important;
-    }
+  > * {
+    font-size: 1.5rem !important;
+  }
 }
 
 mat-paginator {
-    &.paginator {
-        mat-select {
-            .mat-mdc-select-value {
-                font-size: 1.6rem !important;
-            }
-        }
-        .mat-mdc-paginator-container{
-            justify-content: space-between!important;
-        }
+  &.paginator {
+    mat-select {
+      .mat-mdc-select-value {
+        font-size: 1.6rem !important;
+      }
     }
+    .mat-mdc-paginator-container {
+      justify-content: space-between !important;
+    }
+  }
 }
 
 .header-text {
-    font-size: 2.54rem;
-    margin-bottom: 2.5rem;
-    font-weight: 600;
+  font-size: 2.54rem;
+  margin-bottom: 2.5rem;
+  font-weight: 600;
 }
 
 .secondary-text {
-    font-size: 1.85rem;
-    margin-bottom: 2.5rem;
-    font-weight: 500;
+  font-size: 1.85rem;
+  margin-bottom: 2.5rem;
+  font-weight: 500;
 }
 
 .loading-table {
-    height: 100%;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: 0.8rem;
-    background-color: #fff;
-    border-radius: 0.8rem;
-    overflow: hidden;
-    min-height: 40rem;
-    // box-shadow: 0 0 12px 4px #1f1f1f56;
-    box-shadow: 0 0 0 1px #1f1f1f56;
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  background-color: #fff;
+  border-radius: 0.8rem;
+  overflow: hidden;
+  // min-height: 40rem;
+  // box-shadow: 0 0 12px 4px #1f1f1f56;
+  box-shadow: 0 0 0 1px #1f1f1f56;
 
-    &::before,
-    &::after {
-        content: '';
-        position: absolute;
-        animation: load 2s infinite;
-        background-color: #c4c4c4;
-        border-radius: 0.5rem;
-        margin: 0 auto;
-    }
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    animation: load 2s infinite;
+    background-color: #c4c4c4;
+    border-radius: 0.5rem;
+    margin: 0 auto;
+  }
 
-    &::before {
-        top: 2rem;
-        left: 0;
-        right: 0;
-        width: calc(100% - 4rem);
-        height: 5rem;
-    }
+  &::before {
+    top: 2rem;
+    left: 0;
+    right: 0;
+    width: calc(100% - 4rem);
+    height: 5rem;
+  }
 
-    &::after {
-        top: 8rem;
-        left: 0;
-        right: 0;
-        bottom: 2rem;
-        width: calc(100% - 4rem);
-        height: calc(100% - 10rem);
-    }
+  &::after {
+    top: 8rem;
+    left: 0;
+    right: 0;
+    bottom: 2rem;
+    width: calc(100% - 4rem);
+    height: calc(100% - 10rem);
+  }
 }
 
 @keyframes load {
-    0% {
-        opacity: 1;
-    }
+  0% {
+    opacity: 1;
+  }
 
-    50% {
-        opacity: 0.4;
-    }
+  50% {
+    opacity: 0.4;
+  }
 
-    100% {
-        opacity: 1;
-    }
+  100% {
+    opacity: 1;
+  }
 }
 
-.d-contents{
-    display:contents;
+.d-contents {
+  display: contents;
+}
+
+.data-card {
+  border-radius: 0.8rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.2rem;
+  // box-shadow: 0 0 12px 4px #00000054;
+  box-shadow: 0 0 0 1px #00000054;
+  background-color: #fff;
+  overflow: hidden;
+  padding-top: 2rem;
+  height: calc(100% - 2rem);
+
+  .card-icon {
+    grid-row: 1 / span 2;
+    grid-column: 1 / span 2;
+  }
+
+  .card-icon-container {
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    --size: 5rem;
+    width: var(--size);
+    aspect-ratio: 1;
+
+    svg {
+      height: 100%;
+      width: 100%;
+      object-fit: contain;
+    }
+  }
+
+  .title {
+    grid-row: 1;
+    grid-column: 3 / 5;
+    font-size: 2.8rem;
+    font-weight: 500;
+  }
+
+  .data {
+    grid-row: 2;
+    grid-column: 3 / 5;
+    font-size: 2.2rem;
+  }
+
+  .show-more {
+    grid-row: 3;
+    grid-column: 1 / 5;
+    padding: 1.2rem;
+    font-size: 1.7rem;
+    text-align: center;
+    background-color: var(--primary-color);
+    color: #fff;
+    text-decoration: none;
+  }
 }

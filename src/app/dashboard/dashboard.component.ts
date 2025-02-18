@@ -5,13 +5,14 @@ import { BehaviorSubject, combineLatest, debounceTime, delay, map, Observable, o
 import { AsyncPipe } from '@angular/common';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ArcElement, CategoryScale, Chart, ChartData, ChartMeta, ChartType, Legend, LinearScale, LineController, LineElement, PieController, PointElement, Ticks, Title, Tooltip } from 'chart.js';
+import { DataCardComponent } from "../data-card/data-card.component";
 
 Chart.register(LineController, LineElement, LinearScale, Title, CategoryScale, PointElement, Legend, PieController, ArcElement, Tooltip)
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [DataTableComponent, SearchSelectComponent, AsyncPipe],
+  imports: [DataTableComponent, SearchSelectComponent, AsyncPipe, DataCardComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })

@@ -2,16 +2,7 @@
     <div class="data-card-container">
         @if(dataCardList | async; as cards){
         @for(card of cards;track card){
-        <div class="data-card">
-            @if(card.icon !== null){
-            <div class="card-icon">
-                <div class="card-icon-container" [innerHTML]="card.icon"></div>
-            </div>
-            }
-            <div class="title">{{card.name}}</div>
-            <div class="data">{{card.data}}</div>
-            <a href="javascript:void(0)" class="show-more">View Details</a>
-        </div>
+            <app-data-card [data]="card" />
         }
         }
     </div>
