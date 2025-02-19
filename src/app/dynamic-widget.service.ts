@@ -23,6 +23,8 @@ import { OrdersCardComponent } from './customizable-dashboard/orders-card/orders
 import { MembersCardComponent } from './customizable-dashboard/members-card/members-card.component';
 import { DeliveredCardComponent } from './customizable-dashboard/delivered-card/delivered-card.component';
 import { LineChartComponent } from './customizable-dashboard/line-chart/line-chart.component';
+import { PieChartComponent } from './customizable-dashboard/pie-chart/pie-chart.component';
+import { PopularProductTableComponent } from './customizable-dashboard/popular-product-table/popular-product-table.component';
 
 export type Widget = {
   id: number;
@@ -57,6 +59,14 @@ export class DynamicWidgetService {
       component: OrdersCardComponent,
     },
     {
+      id: 6,
+      name: 'Pie Chart',
+      cols: 2,
+      rows: 3,
+      show: true,
+      component: PieChartComponent,
+    },
+    {
       id: 3,
       name: 'Members Card',
       cols: 1,
@@ -74,19 +84,28 @@ export class DynamicWidgetService {
     },
     {
       id: 5,
+      name: 'Line Chart',
+      cols: 2,
+      rows: 2,
+      show: true,
+      component: LineChartComponent,
+    },
+
+    {
+      id: 7,
       name: 'Product Table',
-      cols: 3,
+      cols: 2,
       rows: 3,
       show: true,
       component: TablesComponent,
     },
     {
-      id: 6,
-      name: 'Line Chart',
-      cols: 3,
-      rows: 3,
+      id: 8,
+      name: 'Popular Products Table',
+      cols: 2,
+      rows: 2,
       show: true,
-      component: LineChartComponent,
+      component: PopularProductTableComponent,
     },
   ]);
 
@@ -95,7 +114,7 @@ export class DynamicWidgetService {
     map(widgets => widgets.filter(widget => widget.show)),
   )
   draggedItemComp: Component | null = null;
-  constructor() {}
+  constructor() { }
 
   updateWidget(id: number, widget: Partial<Widget>) {
     const temp = this.widgets.value;

@@ -15,7 +15,7 @@ export const routes: Routes = [
 			{ path: 'forms', component: FormsComponent },
 			{ path: 'tables', component: TablesComponent },
 			{ path: 'customizable-dashboard', component: CustomizableDashboardComponent },
-			{ path: '', redirectTo: 'dashboard', pathMatch: 'full'},
+			{ path: '', redirectTo: 'customizable-dashboard', pathMatch: 'full'},
 		]
 	},
 	{

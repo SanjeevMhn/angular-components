@@ -12,7 +12,9 @@ Chart.register(LineController, LineElement, LinearScale);
   selector: 'app-line-chart',
   standalone: true,
   imports: [],
-  template: ` <div class="canvas-container">
+  template: ` 
+  <div class="canvas-container">
+    <h2 class="header-text">Line Chart</h2>
     <canvas #lineChart id="lineChart"></canvas>
   </div>`,
   styles: `
@@ -27,11 +29,12 @@ Chart.register(LineController, LineElement, LinearScale);
       border-radius: 0.8rem;
       box-shadow: 0 0 0 1px #00000054;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
     }
     canvas{
-      height: 100%!important;
+      height: calc(100% - 7rem)!important;
       padding: 0 2rem;
       min-height: 22rem;
     }
@@ -39,6 +42,7 @@ Chart.register(LineController, LineElement, LinearScale);
     @media screen and (max-width: 890px){
       canvas{
         padding: 0 0.8rem;
+        height: 100%!important;
       }
     }
   `,

@@ -9,18 +9,13 @@
 @include mat.core();
 
 // Define the theme object.
-$custom-components-theme: mat.define-theme(
-  (
-    color: (
-      theme-type: light,
-      primary: mat.$azure-palette,
-      tertiary: mat.$blue-palette,
-    ),
-    density: (
-      scale: 0,
-    ),
-  )
-);
+$custom-components-theme: mat.define-theme((color: (theme-type: light,
+        primary: mat.$azure-palette,
+        tertiary: mat.$blue-palette,
+      ),
+      density: (scale: 0,
+      ),
+    ));
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
@@ -81,7 +76,7 @@ body {
 }
 
 mat-option {
-  > * {
+  >* {
     font-size: 1.5rem !important;
   }
 }
@@ -93,6 +88,7 @@ mat-paginator {
         font-size: 1.6rem !important;
       }
     }
+
     .mat-mdc-paginator-container {
       justify-content: space-between !important;
     }
@@ -100,9 +96,17 @@ mat-paginator {
 }
 
 .header-text {
-  font-size: 2.54rem;
-  margin-bottom: 2.5rem;
-  font-weight: 600;
+  font-size: 1.54rem;
+  margin-bottom: 0;
+  font-weight: 500;
+}
+
+@media screen and (min-width: 1290px) {
+  .header-text {
+    font-size: 2.54rem;
+    margin-bottom: 2.5rem;
+    font-weight: 600;
+  }
 }
 
 .secondary-text {
@@ -235,23 +239,23 @@ mat-paginator {
 }
 
 @media screen and (max-width: 1290px) {
-  .data-card{
+  .data-card {
     padding-top: 1.2rem;
     height: calc(100% - 1.2rem);
 
-    .card-icon-container{
+    .card-icon-container {
       --size: 3.8rem;
     }
-    
-    .title{
+
+    .title {
       font-size: 1.8rem;
     }
 
-    .data{
+    .data {
       font-size: 1.6rem
     }
 
-    .show-more{
+    .show-more {
       padding: 0.8rem;
       font-size: 1.6rem;
     }
