@@ -21,10 +21,28 @@
     <span class="label-text">Save</span>
     }
   </button>
+  <div class="widget-toggle">
+    <button type="button" class="widget-toggle-btn" (click)="toggleWidgetList()">
+      <span class="label-text">
+        Components
+      </span>
+      <span class="icon-container">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>
+      </span>
+    </button>
+    <ul class="widget-list" [class.show]="showWidgetList">
+      @for(widget of store.widgets | async; track widget.id){
+        <li class="item">
+          <input type="checkbox" name="active" [id]="widget.id" [checked]="widget.show" (change)="updateWidgetVisibility($event,widget)">
+          <label [for]="widget.id">{{widget.name}}</label>
+        </li>
+      }
+    </ul>
+  </div>
 </div>
 
 <div class="widget-container">
-  @if(store.widgets$ | async; as widgets){ @for (w of widgets; track w.id) {
+  @if(store.visibleWidgets$ | async; as widgets){ @for (w of widgets; track w.id) {
   <app-widget [widget]="w" />
   } }
 </div>

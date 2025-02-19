@@ -1,12 +1,15 @@
 import { Component, inject, Injectable, Type } from '@angular/core';
 import {
   BehaviorSubject,
+  filter,
+  map,
   Observable,
   of,
   startWith,
   Subject,
   switchMap,
   tap,
+  toArray,
   withLatestFrom,
 } from 'rxjs';
 import { TablesComponent } from './tables/tables.component';
@@ -39,7 +42,7 @@ export class DynamicWidgetService {
   widgets = new BehaviorSubject<Array<Widget>>([
     {
       id: 1,
-      name: 'Card One',
+      name: 'Product Card',
       cols: 1,
       rows: 1,
       show: true,
@@ -47,7 +50,7 @@ export class DynamicWidgetService {
     },
     {
       id: 2,
-      name: 'Card Two',
+      name: 'Orders Card',
       cols: 1,
       rows: 1,
       show: true,
@@ -55,7 +58,7 @@ export class DynamicWidgetService {
     },
     {
       id: 3,
-      name: 'Card Three',
+      name: 'Members Card',
       cols: 1,
       rows: 1,
       show: true,
@@ -63,7 +66,7 @@ export class DynamicWidgetService {
     },
     {
       id: 4,
-      name: 'Card Four',
+      name: 'Delivered Card',
       cols: 1,
       rows: 1,
       show: true,
@@ -71,7 +74,7 @@ export class DynamicWidgetService {
     },
     {
       id: 5,
-      name: 'Table',
+      name: 'Product Table',
       cols: 3,
       rows: 3,
       show: true,
@@ -88,6 +91,9 @@ export class DynamicWidgetService {
   ]);
 
   widgets$ = this.widgets.asObservable();
+  visibleWidgets$ = this.widgets$.pipe(
+    map(widgets => widgets.filter(widget => widget.show)),
+  )
   draggedItemComp: Component | null = null;
   constructor() {}
 

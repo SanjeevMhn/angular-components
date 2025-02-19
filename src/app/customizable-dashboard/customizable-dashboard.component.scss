@@ -1,52 +1,99 @@
-.widget-container{
-    display: grid;
-    grid-auto-rows: 16rem;
-    grid-template-columns: repeat(auto-fill, minmax(25rem, 1fr));
-    gap: 1.5rem;
+.widget-container {
+  display: grid;
+  grid-auto-rows: 16rem;
+  grid-template-columns: repeat(auto-fill, minmax(25rem, 1fr));
+  gap: 1.5rem;
 }
 
 @media screen and (max-width: 1390px) {
-    .widget-container{
-        grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
-    }
+  .widget-container {
+    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+  }
 }
 
 @media screen and (max-width: 1290px) {
-    .widget-container{
-        grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
-        grid-auto-rows: 12rem;
-    }
+  .widget-container {
+    grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+    grid-auto-rows: 12rem;
+  }
 }
 
 @media screen and (max-width: 890px) {
-    .widget-container{
-        // grid-template-columns: 1fr;
+  .widget-container {
+    // grid-template-columns: 1fr;
+    display: flex;
+    flex-wrap: wrap;
+    gap: unset;
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  .secondary-text {
+    margin: 0;
+  }
+  > *{
+    &:nth-last-child(2){
+        margin-left: auto;
+    }
+  }
+}
+
+.edit-mode-toggle,
+.widget-toggle-btn {
+  border: 2px solid #222;
+  border-radius: 100vh;
+  padding: 0.75rem 1rem;
+  min-width: 8.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  cursor: pointer;
+  .icon-container{
+    --size: 1.8rem;
+  }
+  .label-text {
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+}
+
+.widget-toggle {
+  position: relative;
+  isolation: isolate;
+  z-index: 1;
+  .widget-list {
+    margin-top: 1rem;
+    border-radius: 0.8rem;
+    background-color: #fff;
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    min-width: 18rem;
+    flex-direction: column;
+    border: 1px solid #222;
+    &.show{
         display: flex;
-        flex-wrap: wrap;
-        gap: unset;
     }
-}
-
-.header{
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-    .secondary-text{
+    .item {
+      padding: 0.8rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      input, label{
+        cursor: pointer;
         margin: 0;
+      }
+      &:hover{
+        background: rgba(92, 178, 248, 0.48);
+      }
+      &:not(:last-child){
+        border-bottom: 1px solid #222;
+      }
     }
-}
-
-.edit-mode-toggle{
-    border: 2px solid #222;
-    border-radius: 100vh;
-    padding: 0.75rem 1rem;
-    min-width: 8.5rem;
-    display: flex;
-    align-items: center;
-    gap: 0.7rem;
-    .label-text{
-        font-size: 1.5rem;
-        font-weight: 600;
-    }
+  }
 }
