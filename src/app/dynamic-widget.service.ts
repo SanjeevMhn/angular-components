@@ -19,6 +19,7 @@ import { ProductsCardComponent } from './customizable-dashboard/products-card/pr
 import { OrdersCardComponent } from './customizable-dashboard/orders-card/orders-card.component';
 import { MembersCardComponent } from './customizable-dashboard/members-card/members-card.component';
 import { DeliveredCardComponent } from './customizable-dashboard/delivered-card/delivered-card.component';
+import { LineChartComponent } from './customizable-dashboard/line-chart/line-chart.component';
 
 export type Widget = {
   id: number;
@@ -71,10 +72,18 @@ export class DynamicWidgetService {
     {
       id: 5,
       name: 'Table',
-      cols: 4,
+      cols: 3,
       rows: 3,
       show: true,
       component: TablesComponent,
+    },
+    {
+      id: 6,
+      name: 'Line Chart',
+      cols: 3,
+      rows: 3,
+      show: true,
+      component: LineChartComponent,
     },
   ]);
 

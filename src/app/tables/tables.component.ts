@@ -143,8 +143,6 @@ export class TablesComponent {
         });
       });
     } else if (this.filtered.length > 0) {
-      debugger;
-      console.log(this.filtered);
       colSearch.forEach((col) => {
         this.filtered = this.filtered.filter((item) => {
           if (

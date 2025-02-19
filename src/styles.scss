@@ -173,8 +173,8 @@ mat-paginator {
 .data-card {
   border-radius: 0.8rem;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1.2rem;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0.75rem;
   // box-shadow: 0 0 12px 4px #00000054;
   box-shadow: 0 0 0 1px #00000054;
   background-color: #fff;
@@ -185,6 +185,7 @@ mat-paginator {
   .card-icon {
     grid-row: 1 / span 2;
     grid-column: 1 / span 2;
+    align-self: center;
   }
 
   .card-icon-container {
@@ -192,7 +193,7 @@ mat-paginator {
     display: flex;
     align-items: center;
     justify-content: center;
-    --size: 5rem;
+    --size: 4.2rem;
     width: var(--size);
     aspect-ratio: 1;
 
@@ -205,25 +206,54 @@ mat-paginator {
 
   .title {
     grid-row: 1;
-    grid-column: 3 / 5;
+    grid-column: 3 / -1;
     font-size: 2.8rem;
     font-weight: 500;
+    align-self: center;
   }
 
   .data {
     grid-row: 2;
-    grid-column: 3 / 5;
+    grid-column: 3;
     font-size: 2.2rem;
+    align-self: center;
   }
 
   .show-more {
     grid-row: 3;
-    grid-column: 1 / 5;
+    grid-column: 1 / -1;
     padding: 1.2rem;
     font-size: 1.7rem;
     text-align: center;
     background-color: var(--primary-color);
     color: #fff;
     text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 1290px) {
+  .data-card{
+    padding-top: 1.2rem;
+    height: calc(100% - 1.2rem);
+
+    .card-icon-container{
+      --size: 3.8rem;
+    }
+    
+    .title{
+      font-size: 1.8rem;
+    }
+
+    .data{
+      font-size: 1.6rem
+    }
+
+    .show-more{
+      padding: 0.8rem;
+      font-size: 1.6rem;
+    }
   }
 }

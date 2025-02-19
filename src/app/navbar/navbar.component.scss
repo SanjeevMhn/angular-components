@@ -18,6 +18,12 @@
   }
 }
 
+@media screen and (max-width: 1295px) {
+  .main-nav{
+    --offset: 8rem;
+  }
+}
+
 .hamburger-btn {
   padding: 0;
   margin: 0;

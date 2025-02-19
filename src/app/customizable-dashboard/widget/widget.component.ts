@@ -15,12 +15,13 @@ import { NgComponentOutlet } from '@angular/common';
   template: `
     @if(widget){
     <article
-      class="widget-container"
+      class="widget"
       [draggable]="store.editMode"
       (dragstart)="onDragStart($event, widget)"
       (drop)="onDrop($event, widget)"
       (dragover)="onDragOver($event)"
     >
+    <div class="inner-container">
       @if(showOption){
       <div class="widget-header">
         <button type="button" class="settings btn" (click)="toggleOptions()">
@@ -34,6 +35,7 @@ import { NgComponentOutlet } from '@angular/common';
         </button>
       </div>
       <div class="widget-content">
+        <p class="message">Cannot change height and width on small screens.</p>
         <div class="control">
           <p>Width</p>
           <ul class="option">
@@ -84,16 +86,43 @@ import { NgComponentOutlet } from '@angular/common';
         }
       </div>
       }
+    </div>
     </article>
     }
   `,
   styles: `
+    @media(max-width: 890px){
+      :host{
+        grid-area: unset!important;
+        flex: 0 0 calc(100% / 2);
+        width: 100%;
+      }
+      .widget{
+        .inner-container{
+          padding: 1rem;
+          .widget-content{
+            .message{
+              display: block;
+              text-align: center;
+            }
+            .control{
+              display: none;
+            }
+          }
+        }
+      }
+    }
+
+    @media(max-width: 690px){
+      :host{
+        flex: 0 0 calc(100%);
+        width: 100%;
+      }
+    }
+
     :host{
-      // border: 1px solid #222222;
-      // background: #fff;
       color: #000;
-      // border-radius: 5px;
-      // padding: 2rem;
+      height: 100%;
     }
     .widget-header{
       display: flex;
@@ -110,15 +139,19 @@ import { NgComponentOutlet } from '@angular/common';
       border-radius: 0.8rem 0.8rem 0 0;
       border-bottom-width: 0;
     }
-    .widget-container{
+    .widget{
       position: relative;
       isolation: isolate;
       height: 100%;
+      .inner-container{
+        height: 100%;
+      }
       &:has(.widget-header){
         .widget-content{
           height: calc(100% - 3rem);
           border: 1px solid #222;
           border-radius: 0.8rem 0 0.8rem 0.8rem;
+          cursor: move;
         }
       }
       .widget-content{
@@ -129,7 +162,10 @@ import { NgComponentOutlet } from '@angular/common';
         gap: 0.8rem;
         justify-content: center;
         background: #fff;
-        
+        min-height: 9rem;
+        .message{
+          display: none;
+        }
        }
     }
     .control{
@@ -174,24 +210,21 @@ import { NgComponentOutlet } from '@angular/common';
       '"span " + (widget.rows ?? 1) + "/ span " + (widget.cols ?? 1)',
   },
 })
-export class WidgetComponent implements AfterViewInit {
+export class WidgetComponent{
   @Input() widget!: Widget;
   store = inject(DynamicWidgetService);
   showOption = false;
   options: Array<number> = [1, 2, 3, 4, 5, 6];
-
-  @ViewChild('widgetWithData', { static: false })
-  widgetWithData!: typeof this.widget.component;
-
-  ngAfterViewInit(): void {
-    console.log(this.widgetWithData);
-  }
 
   toggleOptions(state = false) {
     this.showOption = state;
   }
 
   onDragStart(event: DragEvent, widget: Widget) {
+    if(!this.store.editMode){
+      event.preventDefault();
+      return
+    }
     this.store.draggedItemComp =
       widget.component !== null ? widget.component : null;
     event.dataTransfer?.setData('text/plain', JSON.stringify(widget));
@@ -202,6 +235,10 @@ export class WidgetComponent implements AfterViewInit {
   }
 
   onDrop(event: DragEvent, widget: Widget) {
+    if(!this.store.editMode){
+      event.preventDefault();
+      return
+    }
     event.preventDefault();
     let draggedWidget: Widget = JSON.parse(
       event.dataTransfer?.getData('text/plain')!
