@@ -178,9 +178,10 @@ import { NgComponentOutlet } from '@angular/common';
         li{
           padding: 0.5rem;
           cursor: pointer;
+          --size: 2rem;
           border: 2px solid #222;
-          width: 2rem;
-          height: 2rem;
+          width: var(--size);
+          height: var(--size);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -202,6 +203,20 @@ import { NgComponentOutlet } from '@angular/common';
           
         }
 
+      }
+    }
+    @media(max-width: 1390px){
+      .control{
+        p{
+          font-size: 1.4rem;
+        }
+        .option{
+          li{
+            padding: 0.25rem;
+            --size: 1.4rem;
+            font-size: 1.4rem;
+          }
+        }
       }
     }
   `,
