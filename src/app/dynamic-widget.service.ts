@@ -1,22 +1,11 @@
 import { Component, inject, Injectable, Type } from '@angular/core';
 import {
-  BehaviorSubject,
-  filter,
   map,
-  Observable,
-  of,
   startWith,
   Subject,
-  switchMap,
   tap,
-  toArray,
-  withLatestFrom,
 } from 'rxjs';
 import { TablesComponent } from './tables/tables.component';
-import {
-  DataCardComponent,
-  DataCardType,
-} from './data-card/data-card.component';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ProductsCardComponent } from './customizable-dashboard/products-card/products-card.component';
 import { OrdersCardComponent } from './customizable-dashboard/orders-card/orders-card.component';
@@ -41,7 +30,7 @@ export type Widget = {
 export class DynamicWidgetService {
   sanitizer = inject(DomSanitizer);
   editMode = false;
-  widgets = new BehaviorSubject<Array<Widget>>([
+  widgets = [
     {
       id: 1,
       name: 'Product Card',
@@ -107,17 +96,50 @@ export class DynamicWidgetService {
       show: true,
       component: PopularProductTableComponent,
     },
-  ]);
+  ];
 
-  widgets$ = this.widgets.asObservable();
+  widgetsUpdate = new Subject<Array<Widget>>();
+
+  widgets$ = this.widgetsUpdate.pipe(
+    startWith(this.getWidgetsList()),
+    map((updated) => {
+      return updated;
+    }),
+    tap((widgets) => {
+      localStorage.setItem('widgets', JSON.stringify(widgets));
+    })
+  );
+
   visibleWidgets$ = this.widgets$.pipe(
-    map(widgets => widgets.filter(widget => widget.show)),
-  )
+    map((widgets) => widgets.filter((widget) => widget.show))
+  );
   draggedItemComp: Component | null = null;
-  constructor() { }
+  
+  constructor() {}
+
+  getWidgetsList(){
+   if(localStorage.getItem('widgets')){
+    const widgets = JSON.parse(localStorage.getItem('widgets')!) as Array<Widget>
+    return this.widgets.reduce((acc: Array<Widget>, curr:Widget) => {
+      const updatedWidget = widgets.find(wd => wd.id == curr.id)
+      const updatedWidgetIndex = widgets.findIndex(wd => wd.id == curr.id)
+
+      if(updatedWidget == undefined) return []
+      if(updatedWidgetIndex == -1) return []
+
+      acc[updatedWidgetIndex] = {
+        ...updatedWidget,
+        component: curr.component
+      }
+      return acc
+    },[])
+   }
+
+   return this.widgets
+  }
 
   updateWidget(id: number, widget: Partial<Widget>) {
-    const temp = this.widgets.value;
+    const temp = this.getWidgetsList();
     let index = temp.findIndex((w: Widget) => w.id == id);
     if (index == -1) {
       return;
@@ -125,11 +147,11 @@ export class DynamicWidgetService {
 
     const newWidget = [...temp];
     newWidget[index] = { ...newWidget[index], ...widget };
-    this.widgets.next(newWidget);
+    this.widgetsUpdate.next(newWidget);
   }
 
   moveWidgets(widgetMoved: Widget, widgetToUpdate: Widget) {
-    const temp = this.widgets.value;
+    const temp = this.getWidgetsList();
     let moveIndex = temp.findIndex((w: Widget) => w.id == widgetMoved.id);
     let toUpdateIndex = temp.findIndex(
       (w: Widget) => w.id == widgetToUpdate.id
@@ -138,6 +160,6 @@ export class DynamicWidgetService {
     temp[moveIndex] = widgetToUpdate;
     temp[toUpdateIndex] = widgetMoved;
 
-    this.widgets.next(temp);
+    this.widgetsUpdate.next(temp);
   }
 }
