@@ -31,7 +31,7 @@
       </span>
     </button>
     <ul class="widget-list" [class.show]="showWidgetList">
-      @for(widget of store.widgets | async; track widget.id){
+      @for(widget of store.widgets$ | async; track widget.id){
         <li class="item">
           <input type="checkbox" name="active" [id]="widget.id" [checked]="widget.show" (change)="updateWidgetVisibility($event,widget)">
           <label [for]="widget.id">{{widget.name}}</label>
