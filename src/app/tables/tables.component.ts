@@ -17,6 +17,7 @@ import {
   DataTableComponent,
 } from '../data-table/data-table.component';
 import { SearchColumn } from '../data-table/data-table-header/data-table-header.component';
+import { ProductService } from '../services/product/product.service';
 
 @Component({
   selector: 'app-tables',
@@ -76,6 +77,8 @@ export class TablesComponent {
     },
   ];
 
+  productService = inject(ProductService);
+
   dataSource$ = combineLatest([
     this.pageSize,
     this.currentPage,
@@ -83,10 +86,9 @@ export class TablesComponent {
     this.searchColumnSubject,
   ]).pipe(
     switchMap(([pageSize, page, search, colSearch]) => {
-      let url = 'https://fakestoreapi.com/products';
       let offset = (page - 1) * pageSize;
       return search.length !== 0
-        ? this.http.get<Array<any>>(url).pipe(
+        ? this.productService.getProducts().pipe(
             tap((items) =>
               this.dataSize.next(
                 items.filter((item) =>
@@ -103,7 +105,7 @@ export class TablesComponent {
             )
           )
         : colSearch.length > 0
-        ? this.http.get<Array<any>>(url).pipe(
+        ? this.productService.getProducts().pipe(
             tap((items) => {
               console.log(colSearch);
               let filteredItems = this.searchDataByColumn(items, colSearch);
@@ -116,14 +118,14 @@ export class TablesComponent {
               )
             )
           )
-        : this.http.get<Array<any>>(url).pipe(
+        : this.productService.getProducts().pipe(
             tap((items) => this.dataSize.next(items.length)),
             map((items) => items.slice(offset, offset + pageSize))
           );
     })
   );
 
-  filtered: Array<any> = []
+  filtered: Array<any> = [];
 
   searchDataByColumn(
     items: Array<any>,
@@ -138,7 +140,7 @@ export class TablesComponent {
               .toLowerCase()
               .includes(col.search.toString().toLowerCase())
           ) {
-            return item
+            return item;
           }
         });
       });
@@ -151,7 +153,7 @@ export class TablesComponent {
               .toLowerCase()
               .includes(col.search.toString().toLowerCase())
           ) {
-            return item
+            return item;
           }
         });
       });
@@ -179,7 +181,7 @@ export class TablesComponent {
     searchItems = searchItems.filter((item) => item.column !== event.column);
     searchItems.push(event);
     searchItems = searchItems.filter((item) => item.search !== '');
-    if(searchItems.length == 0){
+    if (searchItems.length == 0) {
       this.filtered = [];
     }
     this.searchColumnSubject.next(searchItems);
