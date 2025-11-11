@@ -8,16 +8,16 @@ import { Observable, of, tap } from 'rxjs';
 export class ProductService {
 
 
-  products: any
+  productsData: any
 
   http = inject(HttpClient)
   constructor() { }
 
   getProducts():Observable<Array<any>>{
     let url = 'https://fakestoreapi.com/products';
-    return this.products ? of(this.products) : this.http.get<Array<any>>(url).pipe(
+    return this.productsData ? of(this.productsData) : this.http.get<Array<any>>(url).pipe(
       tap(data => {
-        this.products = data
+        this.productsData = data
       })
     );
   }
