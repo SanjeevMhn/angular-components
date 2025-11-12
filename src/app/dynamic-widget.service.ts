@@ -1,10 +1,5 @@
 import { Component, inject, Injectable, Type } from '@angular/core';
-import {
-  map,
-  startWith,
-  Subject,
-  tap,
-} from 'rxjs';
+import { BehaviorSubject, map, startWith, Subject, tap } from 'rxjs';
 import { TablesComponent } from './tables/tables.component';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ProductsCardComponent } from './customizable-dashboard/products-card/products-card.component';
@@ -98,10 +93,9 @@ export class DynamicWidgetService {
     },
   ];
 
-  widgetsUpdate = new Subject<Array<Widget>>();
+  widgetsUpdate = new BehaviorSubject<Array<Widget>>(this.getWidgetsList());
 
   widgets$ = this.widgetsUpdate.pipe(
-    startWith(this.getWidgetsList()),
     map((updated) => {
       return updated;
     }),
@@ -114,28 +108,36 @@ export class DynamicWidgetService {
     map((widgets) => widgets.filter((widget) => widget.show))
   );
   draggedItemComp: Component | null = null;
-  
+
   constructor() {}
 
-  getWidgetsList(){
-   if(localStorage.getItem('widgets')){
-    const widgets = JSON.parse(localStorage.getItem('widgets')!) as Array<Widget>
-    return this.widgets.reduce((acc: Array<Widget>, curr:Widget) => {
-      const updatedWidget = widgets.find(wd => wd.id == curr.id)
-      const updatedWidgetIndex = widgets.findIndex(wd => wd.id == curr.id)
+  getWidgetsList() {
+    const widgetsLocalStorage = localStorage.getItem('widgets');
+    if (widgetsLocalStorage !== null) {
+      const localWidgets = JSON.parse(widgetsLocalStorage) as Array<Widget>;
+      let widgetList = this.widgets.reduce(
+        (acc: Array<Widget>, curr: Widget) => {
+          const updatedWidget = localWidgets.find((wd) => wd.id == curr.id);
+          const updatedWidgetIndex = localWidgets.findIndex(
+            (wd) => wd.id == curr.id
+          );
 
-      if(updatedWidget == undefined) return []
-      if(updatedWidgetIndex == -1) return []
+          if (updatedWidget == undefined) return [];
+          if (updatedWidgetIndex == -1) return [];
 
-      acc[updatedWidgetIndex] = {
-        ...updatedWidget,
-        component: curr.component
-      }
-      return acc
-    },[])
-   }
+          acc[updatedWidgetIndex] = {
+            ...updatedWidget,
+            component: curr.component,
+          };
+          return acc;
+        },
+        []
+      );
 
-   return this.widgets
+      return widgetList;
+    }
+
+    return this.widgets;
   }
 
   updateWidget(id: number, widget: Partial<Widget>) {
