@@ -25,12 +25,41 @@ th {
 
   .search-field {
     // padding: 0 1.25rem;
+    position: relative;
+    .clear-field{
+      outline: unset;
+      border-width: 0;
+      background-color: unset;
+      --size: 2.5rem;
+      width: var(--size);
+      aspect-ratio: 1 / 1;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      right: 0;
+      cursor: pointer;
+      svg{
+        width: 100%;
+        height: 100%;
+        fill: #a3a3a3;
+      }
+    }
     input {
       padding: 0.5rem;
       width: calc(100% - 1rem);
       outline: unset;
       border-width: 0;
       font-size: 1.6rem;
+      &:not(:placeholder-shown){
+        width: calc(100% - 3rem);
+        padding-right: 2.5rem;
+        & + .clear-field{
+          display: flex;
+        }
+      }
     }
   }
 

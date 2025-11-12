@@ -1,23 +1,47 @@
-<th >
-    <div class="inner-container">
-        <span class="title-text" (click)="columnSort($event)"  [tabIndex]="0">
-            {{ column.name }}
-            @if(column.sortable){
-                @if(sortType == 'asc'){
-                    <span class="icon-container">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2 160 448c0 17.7 14.3 32 32 32s32-14.3 32-32l0-306.7L329.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z"/></svg>
-                    </span>
-                }@else {
-                    <span class="icon-container">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg>
-                    </span>
-                }
-            }
-        </span>
-        @if(column.searchable){
-            <span class="search-field">
-                <input type="text" name="field" id="" class="form-control" placeholder="Search..." (input)="searchColumn($event, column)">
-            </span>
+<th>
+  <div class="inner-container">
+    <span class="title-text" (click)="columnSort($event)" [tabIndex]="0">
+      {{ column.name }}
+      @if(column.sortable){ @if(sortType == 'asc'){
+      <span class="icon-container">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+          <path
+            d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2 160 448c0 17.7 14.3 32 32 32s32-14.3 32-32l0-306.7L329.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z"
+          />
+        </svg>
+      </span>
+      }@else {
+      <span class="icon-container">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+          <path
+            d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"
+          />
+        </svg>
+      </span>
+      } }
+    </span>
+    @if(column.searchable){
+    <form class="search-field">
+      <input
+        type="text"
+        name="field"
+        id=""
+        class="form-control"
+        placeholder="Search..."
+        (input)="searchColumn($event, column)"
+      />
+      <button type="reset" (click)="searchColumn({
+        target:{
+          value: ''
         }
-    </div>
+      }, column)" class="clear-field">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+          <path
+            d="M183.1 137.4C170.6 124.9 150.3 124.9 137.8 137.4C125.3 149.9 125.3 170.2 137.8 182.7L275.2 320L137.9 457.4C125.4 469.9 125.4 490.2 137.9 502.7C150.4 515.2 170.7 515.2 183.2 502.7L320.5 365.3L457.9 502.6C470.4 515.1 490.7 515.1 503.2 502.6C515.7 490.1 515.7 469.8 503.2 457.3L365.8 320L503.1 182.6C515.6 170.1 515.6 149.8 503.1 137.3C490.6 124.8 470.3 124.8 457.8 137.3L320.5 274.7L183.1 137.4z"
+          />
+        </svg>
+      </button>
+    </form>
+    }
+  </div>
 </th>

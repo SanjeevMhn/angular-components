@@ -107,15 +107,11 @@ export class TablesComponent {
         : colSearch.length > 0
         ? this.productService.getProducts().pipe(
             tap((items) => {
-              console.log(colSearch);
               let filteredItems = this.searchDataByColumn(items, colSearch);
               this.dataSize.next(filteredItems.length);
             }),
             map((items) =>
-              this.searchDataByColumn(items, colSearch).splice(
-                offset,
-                offset + pageSize
-              )
+              this.searchDataByColumn(items, colSearch)
             )
           )
         : this.productService.getProducts().pipe(

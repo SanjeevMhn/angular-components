@@ -30,7 +30,7 @@
             </thead>
             <tbody>
                 @if(data.length > 0){
-                @for(item of data; track item){
+                @for(item of data; track $index){
                 <tr>
                     @if(actionColumn){
                         <td>
